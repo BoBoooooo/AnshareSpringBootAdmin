@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.AttendanceMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.Attendance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="PersonId" jdbcType="CHAR" property="personid" />
+    <result column="StartTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="EndTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="Date" jdbcType="VARCHAR" property="date" />
+    <result column="Vacation" jdbcType="INTEGER" property="vacation" />
+    <result column="Vacation_Reason" jdbcType="VARCHAR" property="vacationReason" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="TimeStamp" jdbcType="TIMESTAMP" property="timestamp" />
+  </resultMap>
+</mapper>

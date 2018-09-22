@@ -1,2 +1,2 @@
-# AnshareSpringBootAdmin
-Api Restful Server
+# Anshare_SpringBoot_Admin
+一套前后端分离的后台API服务器

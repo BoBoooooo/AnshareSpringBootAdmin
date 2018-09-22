@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.Users">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="DeptID" jdbcType="CHAR" property="deptid" />
+    <result column="RoleID" jdbcType="CHAR" property="roleid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="RealName" jdbcType="VARCHAR" property="realname" />
+    <result column="Rank" jdbcType="INTEGER" property="rank" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+  </resultMap>
+</mapper>

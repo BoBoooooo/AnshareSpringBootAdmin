@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.PersonMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.Person">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="DeptID" jdbcType="CHAR" property="deptid" />
+    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Workduty" jdbcType="VARCHAR" property="workduty" />
+    <result column="WorkTime" jdbcType="VARCHAR" property="worktime" />
+    <result column="Gender" jdbcType="VARCHAR" property="gender" />
+    <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+  </resultMap>
+</mapper>
