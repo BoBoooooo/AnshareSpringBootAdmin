@@ -9,6 +9,7 @@ import tk.mybatis.mapper.entity.Condition;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 基于通用MyBatis Mapper插件的Service接口的实现
@@ -26,6 +27,19 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void save(T model) {
+
+        Field field = null;
+        try {
+            field = modelClass.getDeclaredField("id");
+            field.setAccessible(true);
+            String mid = UUID.randomUUID().toString();
+            field.set(model, mid);
+        } catch (ReflectiveOperationException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+
+
         mapper.insertSelective(model);
     }
 

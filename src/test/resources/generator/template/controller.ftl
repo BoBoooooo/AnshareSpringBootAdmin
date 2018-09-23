@@ -26,24 +26,25 @@ public class ${modelNameUpperCamel}Controller {
     private ${modelNameUpperCamel}Service ${modelNameLowerCamel}Service;
     @ApiOperation(value = "add${modelNameUpperCamel}")
 
-    @PostMapping("/add")
-    public Result add(${modelNameUpperCamel} ${modelNameLowerCamel}) {
+    @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
+    public Result add(@RequestBody ${modelNameUpperCamel} ${modelNameLowerCamel}) {
         ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "delete${modelNameUpperCamel}")
 
     @PostMapping("/delete")
     public Result delete(@RequestParam String id) {
         ${modelNameLowerCamel}Service.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("删除成功");
+
     }
     @ApiOperation(value = "update${modelNameUpperCamel}")
 
-    @PostMapping("/update")
-    public Result update(${modelNameUpperCamel} ${modelNameLowerCamel}) {
+    @PostMapping(value = "/update",produces = "application/json;charset=UTF-8")
+    public Result update(@RequestBody ${modelNameUpperCamel} ${modelNameLowerCamel}) {
         ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("更新成功");
     }
     @ApiOperation(value = "detail${modelNameUpperCamel}")
 

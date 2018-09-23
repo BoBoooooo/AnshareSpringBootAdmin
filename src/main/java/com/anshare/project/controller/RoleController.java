@@ -5,15 +5,14 @@ import com.anshare.project.model.Role;
 import com.anshare.project.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import jdk.nashorn.internal.runtime.options.LoggingOption;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.annotation.Resource;
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
 * Created by Anshare on 2018/09/20.
 */
@@ -26,24 +25,25 @@ public class RoleController {
     private RoleService roleService;
     @ApiOperation(value = "addRole")
 
-    @PostMapping("/add")
-    public Result add(Role role) {
+    @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
+    public Result add(@RequestBody Role role) {
         roleService.save(role);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "deleteRole")
 
     @PostMapping("/delete")
     public Result delete(@RequestParam String id) {
         roleService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("删除成功");
     }
     @ApiOperation(value = "updateRole")
 
-    @PostMapping("/update")
-    public Result update(Role role) {
+    @PostMapping(value = "/update",produces = "application/json;charset=UTF-8")
+    public Result update(@RequestBody Role role) {
+
         roleService.update(role);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("更新成功");
     }
     @ApiOperation(value = "detailRole")
 
