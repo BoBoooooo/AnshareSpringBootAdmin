@@ -8,6 +8,8 @@ import tk.mybatis.mapper.entity.Condition;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +36,15 @@ public abstract class AbstractService<T> implements Service<T> {
             field.setAccessible(true);
             String mid = UUID.randomUUID().toString();
             field.set(model, mid);
+
+
+            Field field2 = modelClass.getDeclaredField("timestamp");
+            field2.setAccessible(true);
+            Timestamp ts=new Timestamp(new Date().getTime());
+            field2.set(model, ts);
+
+
+
         } catch (ReflectiveOperationException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -55,6 +66,14 @@ public abstract class AbstractService<T> implements Service<T> {
             field.setAccessible(true);
             boolean flag = true;
             field.set(model, flag);
+
+
+            Field field2 = modelClass.getDeclaredField("timestamp");
+            field2.setAccessible(true);
+            Timestamp ts=new Timestamp(new Date().getTime());
+            field2.set(model, ts);
+
+
              mapper.updateByPrimaryKeySelective(model);
         } catch (ReflectiveOperationException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -69,6 +88,22 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void update(T model) {
+
+        try {
+            Field field2 = modelClass.getDeclaredField("timestamp");
+            field2.setAccessible(true);
+            Timestamp ts=new Timestamp(new Date().getTime());
+            field2.set(model, ts);
+
+
+
+            mapper.updateByPrimaryKeySelective(model);
+        } catch (ReflectiveOperationException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+
+
         mapper.updateByPrimaryKeySelective(model);
     }
 
