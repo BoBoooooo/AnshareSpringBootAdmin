@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
 * Created by Anshare on 2018/09/18.
@@ -52,12 +55,25 @@ public class UsersController {
         Users users = usersService.findById(id);
         return ResultGenerator.genSuccessResult(users);
     }
-    @ApiOperation(value = "listUsers")
+
+
+    @ApiOperation(value = "Userslist")
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
+    public Result listtest(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        List<Users> list = usersService.findAll();
+        List<Map<String,Object>> list = usersService.list();
+        for (Map<String, Object> map : list) {
+            Set<String> set = map.keySet();
+            Iterator<String> it = set.iterator();
+            while (it.hasNext()) {
+                Object key = it.next();
+                Object value = map.get(key);
+                System.out.println(value);
+            }
+        }
+
+
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

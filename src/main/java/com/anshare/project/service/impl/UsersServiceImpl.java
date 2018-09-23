@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -18,5 +20,10 @@ import javax.annotation.Resource;
 public class UsersServiceImpl extends AbstractService<Users> implements UsersService {
     @Resource
     private UsersMapper usersMapper;
+    public List<Map<String, Object>> list(){
+
+return usersMapper.list();
+    }
+
 
 }

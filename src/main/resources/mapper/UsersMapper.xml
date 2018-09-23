@@ -15,4 +15,19 @@
     <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
     <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
   </resultMap>
+
+
+  <select id="list"  resultType="java.util.Map">
+
+
+    SELECT
+       u.*,r.RoleName,d.DeptName
+    FROM
+        Users u
+     JOIN Role r   ON u.roleid = r.id
+     JOIN Dept d   ON u.deptid = d.id
+
+</select>
+
+
 </mapper>
