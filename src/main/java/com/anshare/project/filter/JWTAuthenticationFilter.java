@@ -1,6 +1,7 @@
 package com.anshare.project.filter;
 import com.anshare.project.configurer.ConstantKey;
 
+import com.anshare.project.core.RedisService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,9 @@ import java.util.ArrayList;
  * @author zhaoxinguo on 2017/9/13.
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
+
+    @Resource
+    private RedisService redisService;
 
     private static final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
@@ -52,6 +57,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         if (token == null || token.isEmpty()) {
             throw new SecurityException("Token为空",new Exception());
         }
+
         // parse the token.
         String user = null;
         logger.info("GET AUTH");
@@ -65,11 +71,23 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             long end = System.currentTimeMillis();
             logger.info("执行时间: {}", (end - start) + " 毫秒");
             if (user != null) {
-                String[] split = user.split("-")[1].split(",");
-                ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                for (int i=0; i < split.length; i++) {
-                }
-                return new UsernamePasswordAuthenticationToken(user, null, authorities);
+//                logger.info(redisService.getStr("admin"));
+//                //如果redis中不存在该token
+//                if(redisService.getStr(user.split("-")[0])==null)
+//                {
+//                    throw new SecurityException("Token已失效",new Exception());
+//
+//                }
+//                else
+//                {
+
+                    String[] split = user.split("-")[1].split(",");
+                    ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+                    for (int i=0; i < split.length; i++) {
+                    }
+                    return new UsernamePasswordAuthenticationToken(user, null, authorities);
+//                }
+
             }
 
         } catch (ExpiredJwtException e) {
