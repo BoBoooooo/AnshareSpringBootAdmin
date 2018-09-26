@@ -10,9 +10,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +31,9 @@ import java.util.ArrayList;
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
+
+
+
     @Resource
     private RedisService redisService;
 
@@ -40,8 +46,10 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("auth");
-        logger.info("拦截请求 JwtFilter");
-
+        HttpServletRequest req = (HttpServletRequest)request; HttpServletResponse resp = (HttpServletResponse)response; ServletContext sc = req.getSession().getServletContext();
+        XmlWebApplicationContext cxt = (XmlWebApplicationContext)WebApplicationContextUtils.getWebApplicationContext(sc);
+        if(cxt != null && cxt.getBean("redisService") != null && redisService == null)
+            redisService = (RedisService) cxt.getBean("redisService");
         if (header == null) {
             chain.doFilter(request, response);
             return;
@@ -58,35 +66,49 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             throw new SecurityException("Token为空",new Exception());
         }
 
+
+
+
+
         // parse the token.
-        String user = null;
         logger.info("GET AUTH");
 
         try {
-            user = Jwts.parser()
+            Claims claims = Jwts.parser()
                     .setSigningKey(ConstantKey.SIGNING_KEY)
                     .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
+                    .getBody();
+
+
+            System.out.println("ID: " + claims.getId());
+            System.out.println("Subject: " + claims.getSubject());
+            System.out.println("Issuer: " + claims.getIssuer());
+            System.out.println("Expiration: " + claims.getExpiration());
+
+                String[] user = claims.getSubject().split("-");
+
             long end = System.currentTimeMillis();
             logger.info("执行时间: {}", (end - start) + " 毫秒");
-            if (user != null) {
-//                logger.info(redisService.getStr("admin"));
-//                //如果redis中不存在该token
-//                if(redisService.getStr(user.split("-")[0])==null)
-//                {
-//                    throw new SecurityException("Token已失效",new Exception());
-//
-//                }
-//                else
-//                {
 
-                    String[] split = user.split("-")[1].split(",");
+
+
+
+            if (user != null) {
+                //如果redis中不存在该token
+                if(redisService.getStr(user[0])==null)
+                {
+                    throw new SecurityException("Token已失效",new Exception());
+
+                }
+                else
+                {
+
+                    String[] split =user[1].split(",");
                     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
                     for (int i=0; i < split.length; i++) {
                     }
                     return new UsernamePasswordAuthenticationToken(user, null, authorities);
-//                }
+                }
 
             }
 

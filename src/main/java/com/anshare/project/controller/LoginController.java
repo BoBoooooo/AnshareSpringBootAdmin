@@ -136,6 +136,23 @@ public class LoginController  {
         return claims.getSubject();
     }
 
+    @ApiOperation(value = "登录接口")
+    @PostMapping(value = "/test")
+    public Result test(String key, HttpServletResponse response) {
+
+
+              String value =   redisService.getStr(key);
+
+                return ResultGenerator.genSuccessResult(value);
+
+
+
+
+
+
+
+    }
+
 
 
 }

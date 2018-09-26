@@ -38,7 +38,7 @@ public class RedisService {
      * @param val
      */
     public void setStr(String key, String val){
-        stringRedisTemplate.opsForSet().add(key,val);
+        stringRedisTemplate.opsForValue().set(key,val);
     }
 
     /**
