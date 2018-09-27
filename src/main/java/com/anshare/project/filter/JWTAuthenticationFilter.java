@@ -1,10 +1,12 @@
 package com.anshare.project.filter;
+
 import com.anshare.project.configurer.ConstantKey;
 
 import com.anshare.project.core.RedisService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,11 +29,10 @@ import java.util.ArrayList;
  * 该类继承自BasicAuthenticationFilter，在doFilterInternal方法中，
  * 从http头的Authorization 项读取token数据，然后用Jwts包提供的方法校验token的合法性。
  * 如果校验通过，就认为这是一个取得授权的合法请求
+ *
  * @author zhaoxinguo on 2017/9/13.
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
-
-
 
 
     @Resource
@@ -46,10 +47,13 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("auth");
-        HttpServletRequest req = (HttpServletRequest)request; HttpServletResponse resp = (HttpServletResponse)response; ServletContext sc = req.getSession().getServletContext();
-        XmlWebApplicationContext cxt = (XmlWebApplicationContext)WebApplicationContextUtils.getWebApplicationContext(sc);
-        if(cxt != null && cxt.getBean("redisService") != null && redisService == null)
-            redisService = (RedisService) cxt.getBean("redisService");
+
+        if (redisService == null) {
+            BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+            redisService = (RedisService) factory.getBean("redisService");
+        }
+
+
         if (header == null) {
             chain.doFilter(request, response);
             return;
@@ -60,14 +64,19 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        long start = System.currentTimeMillis();
-        String token = request.getHeader("auth");
-        if (token == null || token.isEmpty()) {
-            throw new SecurityException("Token为空",new Exception());
+
+        if (redisService == null) {
+            BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+            redisService = (RedisService) factory.getBean("redisService");
         }
 
 
 
+        long start = System.currentTimeMillis();
+        String token = request.getHeader("auth");
+        if (token == null || token.isEmpty()) {
+            throw new SecurityException("Token为空", new Exception());
+        }
 
 
         // parse the token.
@@ -85,28 +94,33 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             System.out.println("Issuer: " + claims.getIssuer());
             System.out.println("Expiration: " + claims.getExpiration());
 
-                String[] user = claims.getSubject().split("-");
+            String[] user = claims.getSubject().split("-");
 
             long end = System.currentTimeMillis();
             logger.info("执行时间: {}", (end - start) + " 毫秒");
 
 
-
-
             if (user != null) {
                 //如果redis中不存在该token
-                if(redisService.getStr(user[0])==null)
-                {
-                    throw new SecurityException("Token已失效",new Exception());
+                if (redisService.getStr(user[0]) == null) {
+                    throw new SecurityException("Token已失效");
 
-                }
-                else
-                {
+                } else {
 
-                    String[] split =user[1].split(",");
+                    String[] split = user[1].split(",");
                     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                    for (int i=0; i < split.length; i++) {
+                    for (int i = 0; i < split.length; i++) {
                     }
+
+
+
+                    if(request.getRequestURI().toLowerCase().contains("logout")){
+                        redisService.del(user[0]);
+
+                        throw new SecurityException("重新登录");
+                    }
+
+
                     return new UsernamePasswordAuthenticationToken(user, null, authorities);
                 }
 

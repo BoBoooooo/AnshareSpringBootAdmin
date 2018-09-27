@@ -136,7 +136,7 @@ public class LoginController  {
         return claims.getSubject();
     }
 
-    @ApiOperation(value = "登录接口")
+    @ApiOperation(value = "redis获取Key接口")
     @PostMapping(value = "/test")
     public Result test(String key, HttpServletResponse response) {
 
@@ -153,6 +153,20 @@ public class LoginController  {
 
     }
 
+    @ApiOperation(value = "登出")
+    @PostMapping(value = "/logout")
+    public Result logout(HttpServletResponse response) {
 
+
+
+        return ResultGenerator.genAuthTokenErrResult("");
+
+
+
+
+
+
+
+    }
 
 }
