@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.Menu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="ParentID" jdbcType="CHAR" property="parentid" />
+    <result column="Sequence" jdbcType="INTEGER" property="sequence" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="Name" jdbcType="LONGVARCHAR" property="name" />
+    <result column="Icon" jdbcType="LONGVARCHAR" property="icon" />
+    <result column="Path" jdbcType="LONGVARCHAR" property="path" />
+    <result column="Redirect" jdbcType="LONGVARCHAR" property="redirect" />
+    <result column="Component" jdbcType="LONGVARCHAR" property="component" />
+  </resultMap>
+</mapper>

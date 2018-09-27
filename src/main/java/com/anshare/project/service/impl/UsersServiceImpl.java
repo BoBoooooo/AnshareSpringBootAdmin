@@ -20,9 +20,10 @@ import java.util.Map;
 public class UsersServiceImpl extends AbstractService<Users> implements UsersService {
     @Resource
     private UsersMapper usersMapper;
-    public List<Map<String, Object>> list(){
 
-return usersMapper.list();
+    public List<Map<String, Object>> list() {
+
+        return usersMapper.list();
     }
 
 

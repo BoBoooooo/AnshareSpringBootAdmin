@@ -5,14 +5,12 @@ import com.anshare.project.model.Role;
 import com.anshare.project.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import jdk.nashorn.internal.runtime.options.LoggingOption;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.annotation.Resource;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 /**
 * Created by Anshare on 2018/09/20.
 */

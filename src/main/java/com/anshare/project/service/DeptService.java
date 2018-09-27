@@ -4,7 +4,7 @@ import com.anshare.project.core.Service;
 
 
 /**
- * Created by Anshare on 2018/09/18.
+ * Created by Anshare on 2018/09/27.
  */
 public interface DeptService extends Service<Dept> {
 
