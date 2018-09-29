@@ -1,5 +1,7 @@
 package com.anshare.project.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import javax.annotation.Resource;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -11,15 +13,19 @@ import java.util.List;
 public class MenuModel {
     @Id
     @Column(name = "ID")
+    @JSONField(serialize=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    @JSONField(serialize=false)
     @Column(name = "ParentID")
     private String parentid;
 
+    @JSONField(serialize=false)
     @Column(name = "Sequence")
     private Integer sequence;
 
+    @JSONField(serialize=false)
     @Column(name = "Timestamp")
     private Date timestamp;
 

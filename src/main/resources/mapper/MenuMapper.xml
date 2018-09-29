@@ -16,4 +16,13 @@
     <result column="Redirect" jdbcType="LONGVARCHAR" property="redirect" />
     <result column="Component" jdbcType="LONGVARCHAR" property="component" />
   </resultMap>
+
+
+
+  <select id="GetMenuTreeByRoleID"  resultType="com.anshare.project.model.Menu"  parameterType="String">
+
+
+    SELECT * FROM MENU WHERE ID IN (SELECT MENUID FROM ROLEMENU WHERE ROLEID = #{ID} ) ORDER BY Sequence asc
+</select>
+
 </mapper>

@@ -1,7 +1,9 @@
 package com.anshare.project.controller;
+
 import com.alibaba.fastjson.JSONObject;
 import com.anshare.project.core.RedisService;
 import com.anshare.project.model.Role;
+import com.anshare.project.service.MenuService;
 import com.anshare.project.service.RoleService;
 import io.jsonwebtoken.Claims;
 import org.apache.catalina.User;
@@ -32,57 +34,57 @@ import java.util.List;
 @RestController
 @Api(value = "登录管理", description = "登录管理")
 @RequestMapping("/login")
-public class LoginController  {
+public class LoginController {
     @Resource
     private UsersService usersService;
     @Resource
     private RoleService roleService;
     @Resource
     private RedisService redisService;
-       @ApiOperation(value = "登录接口")
+    @Resource
+    private MenuService menuService;
+
+    @ApiOperation(value = "登录接口")
     @PostMapping(value = "/login")
     public Result login(String username, String password, HttpServletResponse response) {
 
         Condition condition = new Condition(Users.class);
         condition.createCriteria()
-                .andEqualTo("username",username)
-                .andEqualTo("password",password);
+                .andEqualTo("username", username)
+                .andEqualTo("password", password);
 
         List<Users> userVo = usersService.findByCondition(condition);
-        if (userVo!=null&&userVo.size()>0) {
+        if (userVo != null && userVo.size() > 0) {
             Users user = userVo.get(0);
 
 
-            Role role =roleService.findById(user.getRoleid());
+            Role role = roleService.findById(user.getRoleid());
 
-            if(role!=null){
-                String subject = user.getUsername() + "-"
-                        +user.getRealname()+ "-"
-                        + role.getRoleauthname();
+            if (role != null) {
+                String subject = user.getUsername() + ","
+                        + user.getRealname() + ","
+                        + user.getRoleid()+","
+                       + user.getDeptid();
                 long time = System.currentTimeMillis();
                 String token = Jwts.builder()
                         .setSubject(subject)
-                        .setExpiration(new Date( time+  24 * 60 * 60 * 1000)) // 设置过期时间 1 * 24 * 60 * 60秒情况修改)
+                        .setExpiration(new Date(time + 24 * 60 * 60 * 1000)) // 设置过期时间 1 * 24 * 60 * 60秒情况修改)
                         .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                         .compact();
                 // 登录成功后，返回token到header里面
 
 
-                redisService.setStr(user.getUsername(),token);
+                redisService.setStr(user.getUsername(), token);
 
-                return ResultGenerator.genSuccessResult(token);
+                return ResultGenerator.genSuccessResult(token,"登录成功");
 
-            }
-
-            else
-            {
+            } else {
 
                 return ResultGenerator.genFailResult("该用户未绑定角色");
 
             }
 
-        }
-        else{
+        } else {
 
             return ResultGenerator.genFailResult("用户名或密码错误");
 
@@ -90,32 +92,31 @@ public class LoginController  {
     }
 
 
-    @ApiOperation(value = "获取用户身份信息")
+    @ApiOperation(value = "获取用户身份信息以及对应的菜单信息")
     @PostMapping(value = "/userinfo")
     public Result UserInfo(HttpServletRequest request, HttpServletResponse response) {
 
         String Auth = request.getHeader("auth");
 
-        if(Auth!=null&&Auth!=""){
+        if (Auth != null && Auth != "") {
 
-                String subject =  parseJWT(Auth);
+            String subject = parseJWT(Auth);
 
-                String rolelist = subject.split("-")[2];
 
-            String UserName = subject.split("-")[0];
-            String RealName = subject.split("-")[1];
+            String UserName = subject.split(",")[0];
+            String RealName = subject.split(",")[1];
+            String RoleID = subject.split(",")[2];
+
+            String DeptID = subject.split(",")[3];
 
             JSONObject json = new JSONObject();
-            json.put("Roles",rolelist);
-            json.put("RealName",RealName);
-            json.put("UserName",UserName);
-
+            json.put("RealName", RealName);
+            json.put("UserName", UserName);
+            json.put("Routers",menuService.GetMenuTreeByRoleID(RoleID) );
 
             return ResultGenerator.genSuccessResult(json);
 
-        }
-
-        else{
+        } else {
 
             return ResultGenerator.genFailResult("获取用户信息失败");
 
@@ -141,14 +142,9 @@ public class LoginController  {
     public Result test(String key, HttpServletResponse response) {
 
 
-              String value =   redisService.getStr(key);
+        String value = redisService.getStr(key);
 
-                return ResultGenerator.genSuccessResult(value);
-
-
-
-
-
+        return ResultGenerator.genSuccessResult(value);
 
 
     }
@@ -158,13 +154,7 @@ public class LoginController  {
     public Result logout(HttpServletResponse response) {
 
 
-
         return ResultGenerator.genAuthTokenErrResult("");
-
-
-
-
-
 
 
     }

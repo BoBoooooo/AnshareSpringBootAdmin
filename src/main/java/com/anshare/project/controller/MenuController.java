@@ -56,7 +56,7 @@ public class MenuController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        List<MenuModel> list = menuService.list();
+        List<MenuModel> list = menuService.GetMenuTree();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Anshare on 2018/09/27.
  */
 public interface MenuService extends Service<Menu> {
-    public List<MenuModel> list();
+    public List<MenuModel> GetMenuTree();
+    public List<MenuModel> GetMenuTreeByRoleID (String RoleID);
 
 }

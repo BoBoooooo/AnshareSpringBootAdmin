@@ -61,6 +61,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
@@ -94,7 +95,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             System.out.println("Issuer: " + claims.getIssuer());
             System.out.println("Expiration: " + claims.getExpiration());
 
-            String[] user = claims.getSubject().split("-");
+            String[] user = claims.getSubject().split(",");
 
             long end = System.currentTimeMillis();
             logger.info("执行时间: {}", (end - start) + " 毫秒");
@@ -107,25 +108,14 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
                 } else {
 
-                    String[] split = user[1].split(",");
                     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                    for (int i = 0; i < split.length; i++) {
-                    }
-
-
-
                     if(request.getRequestURI().toLowerCase().contains("logout")){
                         redisService.del(user[0]);
-
                         throw new SecurityException("重新登录");
                     }
-
-
                     return new UsernamePasswordAuthenticationToken(user, null, authorities);
                 }
-
             }
-
         } catch (ExpiredJwtException e) {
             logger.error("Token已过期: {} " + e);
             throw new SecurityException("Token已过期");
