@@ -22,6 +22,11 @@ public class MenuModel {
     private String parentid;
 
     @JSONField(serialize=false)
+    @Column(name = "IsDeleted")
+    private boolean isdeleted;
+
+
+    @JSONField(serialize=false)
     @Column(name = "Sequence")
     private Integer sequence;
 
@@ -205,6 +210,19 @@ public class MenuModel {
     public void setComponent(String component) {
         this.component = component;
     }
+
+
+    public boolean getIsdeleted() {
+        return isdeleted;
+    }
+
+    /**
+     * @param isdeleted
+     */
+    public void setIsdeleted(boolean isdeleted) {
+        this.isdeleted = isdeleted;
+    }
+
 
     public List<MenuModel> getChildren() {
         return children;

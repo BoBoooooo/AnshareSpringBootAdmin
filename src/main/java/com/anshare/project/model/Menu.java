@@ -38,6 +38,9 @@ public class Menu {
     @Column(name = "Component")
     private String component;
 
+    @Column(name = "IsDeleted")
+    private Boolean isdeleted;
+
 
 
 
@@ -181,5 +184,15 @@ public class Menu {
         this.component = component;
     }
 
+    public boolean getIsdeleted() {
+        return isdeleted;
+    }
+
+    /**
+     * @param isdeleted
+     */
+    public void setIsdeleted(boolean isdeleted) {
+        this.isdeleted = isdeleted;
+    }
 
 }

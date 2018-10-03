@@ -51,12 +51,22 @@ public class MenuController {
         Menu menu = menuService.findById(id);
         return ResultGenerator.genSuccessResult(menu);
     }
-    @ApiOperation(value = "listMenu")
+    @ApiOperation(value = "返回tree格式json")
+
+    @PostMapping("/treelist")
+    public Result treelist(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<MenuModel> list = menuService.GetMenuTree();
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @ApiOperation(value = "menulist")
 
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        List<MenuModel> list = menuService.GetMenuTree();
+        List<Menu> list = menuService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

@@ -100,7 +100,7 @@ public class LoginController {
 
         if (Auth != null && Auth != "") {
 
-            String subject = parseJWT(Auth);
+            String subject = parseJWT(request);
 
 
             String UserName = subject.split(",")[0];
@@ -123,9 +123,37 @@ public class LoginController {
         }
     }
 
+    @ApiOperation(value = "修改密码")
+    @PostMapping(value = "/changepassword")
+    public Result changepassword(HttpServletRequest request,String password) {
 
-    private String parseJWT(String jwt) {
+        String subject = parseJWT(request);
+        String UserName = subject.split(",")[0];
+
+        Condition condition = new Condition(Users.class);
+        condition.createCriteria()
+                .andEqualTo("username", UserName);
+        List<Users> userVo = usersService.findByCondition(condition);
+        if (userVo != null && userVo.size() > 0) {
+            Users user = userVo.get(0);
+            user.setPassword(password);
+            usersService.update(user);
+            redisService.del(UserName);
+
+        }
+
+        return ResultGenerator.genAuthTokenErrResult("");
+
+
+    }
+
+
+    private String parseJWT(HttpServletRequest request) {
 //This line will throw an exception if it is not a signed JWS (as expected)
+
+
+        String jwt = request.getHeader("auth");
+
         Claims claims = Jwts.parser()
                 .setSigningKey(ConstantKey.SIGNING_KEY)
                 .parseClaimsJws(jwt).getBody();
@@ -137,24 +165,28 @@ public class LoginController {
         return claims.getSubject();
     }
 
-    @ApiOperation(value = "redis获取Key接口")
-    @PostMapping(value = "/test")
-    public Result test(String key, HttpServletResponse response) {
+
+    @ApiOperation(value = "登出")
+    @PostMapping(value = "/logout")
+    public Result logout(HttpServletRequest request,HttpServletResponse response) {
+        String subject = parseJWT(request);
+        String UserName = subject.split(",")[0];
+
+        redisService.del(UserName);
+
+        return ResultGenerator.genAuthTokenErrResult("");
+
+
+    }
+
+    @ApiOperation(value = "redis Key获取value")
+    @PostMapping(value = "/getkey")
+    public Result getvaluebykey(String key, HttpServletResponse response) {
 
 
         String value = redisService.getStr(key);
 
         return ResultGenerator.genSuccessResult(value);
-
-
-    }
-
-    @ApiOperation(value = "登出")
-    @PostMapping(value = "/logout")
-    public Result logout(HttpServletResponse response) {
-
-
-        return ResultGenerator.genAuthTokenErrResult("");
 
 
     }

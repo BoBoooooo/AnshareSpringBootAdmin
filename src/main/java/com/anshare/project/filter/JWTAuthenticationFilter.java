@@ -109,10 +109,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 } else {
 
                     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-                    if(request.getRequestURI().toLowerCase().contains("logout")){
-                        redisService.del(user[0]);
-                        throw new SecurityException("重新登录");
-                    }
+
                     return new UsernamePasswordAuthenticationToken(user, null, authorities);
                 }
             }
