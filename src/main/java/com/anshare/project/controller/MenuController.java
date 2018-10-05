@@ -70,4 +70,13 @@ public class MenuController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+
+    @ApiOperation(value = "获取某个角色拥有的菜单tree json")
+
+    @PostMapping("/MenuTreeByRoleID")
+    public Result list(@RequestParam String roleid) {
+        List<MenuModel> list = menuService.GetMenuTreeByRoleID(roleid);
+        return ResultGenerator.genSuccessResult(list);
+    }
 }
