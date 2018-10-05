@@ -1,6 +1,5 @@
-package com.anshare.project.core;
+package com.anshare.project.core.Util;
 
-import com.anshare.project.model.Menu;
 import com.anshare.project.model.MenuModel;
 
 import java.util.ArrayList;

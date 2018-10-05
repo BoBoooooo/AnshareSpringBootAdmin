@@ -1,6 +1,6 @@
 package com.anshare.project.controller;
-import com.anshare.project.core.Result;
-import com.anshare.project.core.ResultGenerator;
+import com.anshare.project.core.ResultCore.Result;
+import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.Menu;
 import com.anshare.project.model.MenuModel;
 import com.anshare.project.service.MenuService;

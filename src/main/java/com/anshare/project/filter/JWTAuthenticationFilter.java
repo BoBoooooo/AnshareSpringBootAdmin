@@ -1,7 +1,6 @@
 package com.anshare.project.filter;
 
 import com.anshare.project.configurer.ConstantKey;
-
 import com.anshare.project.core.RedisService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -12,12 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +58,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        String[] test = ((String[]) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        logger.info(test[0]);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
@@ -111,6 +109,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 
                     return new UsernamePasswordAuthenticationToken(user, null, authorities);
+
                 }
             }
         } catch (ExpiredJwtException e) {

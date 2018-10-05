@@ -7,14 +7,12 @@ import com.anshare.project.service.MenuService;
 import com.anshare.project.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.anshare.project.core.TreeUtil;
+import com.anshare.project.core.Util.TreeUtil;
 import java.util.ArrayList;
 import java.util.List;
 import com.anshare.project.model.Menu;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 

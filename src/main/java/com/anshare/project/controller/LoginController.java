@@ -1,31 +1,29 @@
 package com.anshare.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.anshare.project.configurer.ConstantKey;
+import com.anshare.project.core.Util.JwtUtil;
 import com.anshare.project.core.RedisService;
+import com.anshare.project.core.ResultCore.Result;
+import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.Role;
+import com.anshare.project.model.Users;
 import com.anshare.project.service.MenuService;
 import com.anshare.project.service.RoleService;
-import io.jsonwebtoken.Claims;
-import org.apache.catalina.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.anshare.project.configurer.ConstantKey;
-import com.anshare.project.core.Result;
-import com.anshare.project.core.ResultGenerator;
-import com.anshare.project.model.Users;
 import com.anshare.project.service.UsersService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Example;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,10 +70,7 @@ public class LoginController {
                         .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                         .compact();
                 // 登录成功后，返回token到header里面
-
-
                 redisService.setStr(user.getUsername(), token);
-
                 return ResultGenerator.genSuccessResult(token,"登录成功");
 
             } else {
@@ -100,14 +95,13 @@ public class LoginController {
 
         if (Auth != null && Auth != "") {
 
-            String subject = parseJWT(request);
+            String[] subject = JwtUtil.GetDetails();
 
 
-            String UserName = subject.split(",")[0];
-            String RealName = subject.split(",")[1];
-            String RoleID = subject.split(",")[2];
-
-            String DeptID = subject.split(",")[3];
+            String UserName = subject[0];
+            String RealName = subject[1];
+            String RoleID = subject[2];
+            String DeptID = subject[3];
 
             JSONObject json = new JSONObject();
             json.put("RealName", RealName);
@@ -127,8 +121,8 @@ public class LoginController {
     @PostMapping(value = "/changepassword")
     public Result changepassword(HttpServletRequest request,String password) {
 
-        String subject = parseJWT(request);
-        String UserName = subject.split(",")[0];
+        String[] subject = JwtUtil.GetDetails();
+        String UserName = subject[0];
 
         Condition condition = new Condition(Users.class);
         condition.createCriteria()
@@ -148,28 +142,12 @@ public class LoginController {
     }
 
 
-    private String parseJWT(HttpServletRequest request) {
-//This line will throw an exception if it is not a signed JWS (as expected)
-
-
-        String jwt = request.getHeader("auth");
-
-        Claims claims = Jwts.parser()
-                .setSigningKey(ConstantKey.SIGNING_KEY)
-                .parseClaimsJws(jwt).getBody();
-        System.out.println("ID: " + claims.getId());
-        System.out.println("Subject: " + claims.getSubject());
-        System.out.println("Issuer: " + claims.getIssuer());
-        System.out.println("Expiration: " + claims.getExpiration());
-
-        return claims.getSubject();
-    }
 
 
     @ApiOperation(value = "登出")
     @PostMapping(value = "/logout")
     public Result logout(HttpServletRequest request,HttpServletResponse response) {
-        String subject = parseJWT(request);
+        String subject = JwtUtil.parseJWT(request);
         String UserName = subject.split(",")[0];
 
         redisService.del(UserName);
