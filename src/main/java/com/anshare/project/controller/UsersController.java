@@ -31,7 +31,7 @@ public class UsersController {
 
     @PostMapping("/add")
     public Result add(Users users) {
-        usersService.save(users);
+        usersService.save(users,true);
         return ResultGenerator.genSuccessResult();
     }
     @ApiOperation(value = "deleteUsers")

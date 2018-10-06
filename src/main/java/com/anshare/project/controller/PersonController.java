@@ -28,7 +28,7 @@ public class PersonController {
 
     @PostMapping("/add")
     public Result add(Person person) {
-        personService.save(person);
+        personService.save(person,true);
         return ResultGenerator.genSuccessResult();
     }
     @ApiOperation(value = "deletePerson")

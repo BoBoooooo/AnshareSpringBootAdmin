@@ -1,6 +1,6 @@
 package ${basePackage}.controller;
-import ${basePackage}.core.Result;
-import ${basePackage}.core.ResultGenerator;
+import ${basePackage}.core.ResultCore.Result;
+import ${basePackage}.core.ResultCore.ResultGenerator;
 import ${basePackage}.model.${modelNameUpperCamel};
 import ${basePackage}.service.${modelNameUpperCamel}Service;
 import com.github.pagehelper.PageHelper;
@@ -25,7 +25,7 @@ public class ${modelNameUpperCamel}Controller {
 
     @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
     public Result add(@RequestBody ${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
+        ${modelNameLowerCamel}Service.save(${modelNameLowerCamel},true);
         return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "delete${modelNameUpperCamel}")

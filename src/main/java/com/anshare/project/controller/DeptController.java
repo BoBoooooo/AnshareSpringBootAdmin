@@ -25,7 +25,7 @@ public class DeptController {
 
     @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
     public Result add(@RequestBody Dept dept) {
-        deptService.save(dept);
+        deptService.save(dept,true);
         return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "deleteDept")

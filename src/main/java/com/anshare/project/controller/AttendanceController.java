@@ -28,7 +28,7 @@ public class AttendanceController {
 
     @PostMapping("/add")
     public Result add(Attendance attendance) {
-        attendanceService.save(attendance);
+        attendanceService.save(attendance,true);
         return ResultGenerator.genSuccessResult();
     }
     @ApiOperation(value = "deleteAttendance")

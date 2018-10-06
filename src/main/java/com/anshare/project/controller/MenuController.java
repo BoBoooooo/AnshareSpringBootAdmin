@@ -26,7 +26,7 @@ public class MenuController {
 
     @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
     public Result add(@RequestBody Menu menu) {
-        menuService.save(menu);
+        menuService.save(menu,true);
         return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "deleteMenu")

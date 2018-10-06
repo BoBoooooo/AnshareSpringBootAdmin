@@ -1,7 +1,6 @@
 package com.anshare.project.core;
 
 
-import com.anshare.project.model.Users;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
@@ -28,14 +27,25 @@ public abstract class AbstractService<T> implements Service<T> {
         modelClass = (Class<T>) pt.getActualTypeArguments()[0];
     }
 
-    public void save(T model) {
+    public void save(T model,boolean setGuid) {
 
         Field field = null;
         try {
-            field = modelClass.getDeclaredField("id");
-            field.setAccessible(true);
-            String mid = UUID.randomUUID().toString();
-            field.set(model, mid);
+
+
+
+
+            if(setGuid)
+            {
+
+                field = modelClass.getDeclaredField("id");
+                field.setAccessible(true);
+                String mid = UUID.randomUUID().toString();
+
+                field.set(model,mid);
+
+            }
+
 
 
             Field field2 = modelClass.getDeclaredField("timestamp");
@@ -43,6 +53,10 @@ public abstract class AbstractService<T> implements Service<T> {
             Timestamp ts=new Timestamp(new Date().getTime());
             field2.set(model, ts);
 
+
+            Field field3 = modelClass.getDeclaredField("isdeleted");
+            field3.setAccessible(true);
+            field3.set(model, true);
 
 
         } catch (ReflectiveOperationException e) {
@@ -55,6 +69,37 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void save(List<T> models) {
+
+        for(T model:models){
+
+            Field field = null;
+            try {
+                field = modelClass.getDeclaredField("id");
+                field.setAccessible(true);
+                String mid = UUID.randomUUID().toString();
+                field.set(model, mid);
+
+
+                Field field2 = modelClass.getDeclaredField("timestamp");
+                field2.setAccessible(true);
+                Timestamp ts=new Timestamp(new Date().getTime());
+                field2.set(model, ts);
+
+
+                Field field3 = modelClass.getDeclaredField("isdeleted");
+                field3.setAccessible(true);
+                field3.set(model, true);
+
+
+            } catch (ReflectiveOperationException e) {
+                throw new ServiceException(e.getMessage(), e);
+            }
+
+        }
+
+
+
+
         mapper.insertList(models);
     }
 
@@ -86,6 +131,12 @@ public abstract class AbstractService<T> implements Service<T> {
     public void deleteByIds(String ids) {
         mapper.deleteByIds(ids);
     }
+
+
+    public void deleteByCondition(Condition con) {
+        mapper.deleteByCondition(con);
+    }
+
 
     public void update(T model) {
 

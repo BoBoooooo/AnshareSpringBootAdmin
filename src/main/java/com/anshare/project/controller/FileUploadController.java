@@ -54,7 +54,7 @@ public class FileUploadController {
             temp.setSavename(savename+fileExtension);
             FileUtil.uploadFile(file.getBytes(), filePath, temp.getSavename());
 
-            affixService.save(temp);
+            affixService.save(temp,true);
             return ResultGenerator.genSuccessResult("上传成功");
 
         } catch (Exception e) {
