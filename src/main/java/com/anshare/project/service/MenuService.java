@@ -1,8 +1,7 @@
 package com.anshare.project.service;
-import com.anshare.project.model.Menu;
 import com.anshare.project.core.Service;
+import com.anshare.project.model.Menu;
 import com.anshare.project.model.MenuModel;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,5 +12,6 @@ import java.util.List;
 public interface MenuService extends Service<Menu> {
     public List<MenuModel> GetMenuTree();
     public List<MenuModel> GetMenuTreeByRoleID (String RoleID);
+    public List<MenuModel> GetMenuTreeByRoleIDWithAllProp (String RoleID);
 
 }

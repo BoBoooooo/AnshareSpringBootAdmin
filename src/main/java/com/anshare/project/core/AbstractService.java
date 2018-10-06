@@ -56,7 +56,7 @@ public abstract class AbstractService<T> implements Service<T> {
 
             Field field3 = modelClass.getDeclaredField("isdeleted");
             field3.setAccessible(true);
-            field3.set(model, true);
+            field3.set(model, false);
 
 
         } catch (ReflectiveOperationException e) {
@@ -88,7 +88,8 @@ public abstract class AbstractService<T> implements Service<T> {
 
                 Field field3 = modelClass.getDeclaredField("isdeleted");
                 field3.setAccessible(true);
-                field3.set(model, true);
+                field3.set(model, false);
+
 
 
             } catch (ReflectiveOperationException e) {

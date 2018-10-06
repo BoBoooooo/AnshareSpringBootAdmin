@@ -126,7 +126,7 @@ public class RoleController {
     @PostMapping("/detail")
     public Result detail(@RequestParam String id) {
         Role role = roleService.findById(id);
-        List<MenuModel> menuList = menuService.GetMenuTreeByRoleID(id);
+        List<MenuModel> menuList = menuService.GetMenuTreeByRoleIDWithAllProp(id);
 
         List<String> menuid_list = new ArrayList<String>();
 

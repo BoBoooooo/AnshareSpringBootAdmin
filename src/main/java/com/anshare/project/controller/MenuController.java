@@ -54,11 +54,9 @@ public class MenuController {
     @ApiOperation(value = "返回tree格式json")
 
     @PostMapping("/treelist")
-    public Result treelist(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
+    public Result treelist() {
         List<MenuModel> list = menuService.GetMenuTree();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        return ResultGenerator.genSuccessResult(list);
     }
 
     @ApiOperation(value = "menulist")
@@ -76,7 +74,7 @@ public class MenuController {
 
     @PostMapping("/MenuTreeByRoleID")
     public Result list(@RequestParam String roleid) {
-        List<MenuModel> list = menuService.GetMenuTreeByRoleID(roleid);
+        List<MenuModel> list = menuService.GetMenuTreeByRoleIDWithAllProp(roleid);
         return ResultGenerator.genSuccessResult(list);
     }
 }

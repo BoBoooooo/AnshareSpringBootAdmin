@@ -1,20 +1,20 @@
 package com.anshare.project.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.anshare.project.dao.MenuMapper;
-import com.anshare.project.model.*;
-import com.anshare.project.service.MenuService;
 import com.anshare.project.core.AbstractService;
+import com.anshare.project.core.Util.TreeUtil;
+import com.anshare.project.dao.MenuMapper;
+import com.anshare.project.model.Menu;
+import com.anshare.project.model.MenuModel;
+import com.anshare.project.model.Meta;
+import com.anshare.project.service.MenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.anshare.project.core.Util.TreeUtil;
-import java.util.ArrayList;
-import java.util.List;
-import com.anshare.project.model.Menu;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -62,17 +62,16 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         List<MenuModel> treeList = TreeUtil.listToTree(menuList);
 
         //使用fastjson对树形list件序列化转成json字符串,过滤掉属性值为null的属性
-        String message = JSON.toJSONString(treeList, SerializerFeature.PrettyFormat);
-        List<MenuModel> treelist_ = JSON.parseArray(message,MenuModel.class);
+//        String message = JSON.toJSONString(treeList, SerializerFeature.PrettyFormat);
+//        List<MenuModel> treelist_ = JSON.parseArray(message,MenuModel.class);
         //重新将json字符串转成jsonObject对象,返回给前端
-        return treelist_;
+        return treeList;
     }
 
 
     //查询某个角色所拥有的菜单
 
 
-    //查询所有菜单列表
     public List<MenuModel> GetMenuTreeByRoleID(String RoleID) {
 
         List<Menu> json_ = menuMapper.GetMenuTreeByRoleID(RoleID);
@@ -115,5 +114,47 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
         //重新将json字符串转成jsonObject对象,返回给前端
         return treeList;
     }
+
+
+
+    //查询某个角色所拥有的菜单(不过滤ID等属性)
+
+
+    public List<MenuModel> GetMenuTreeByRoleIDWithAllProp(String RoleID) {
+
+        List<Menu> json_ = menuMapper.GetMenuTreeByRoleID(RoleID);
+
+        //定义list集合,存储从数据库查询出的所有记录
+        List<MenuModel> menuList = new ArrayList<MenuModel>();
+
+        // String id, String pid, String path, String redirect, String name, String component, Boolean alwaysShow, String menu
+        //遍历集合
+        for (Menu json : json_) {
+
+            //手动封装Menu实体类对象
+            MenuModel menu = new MenuModel(
+                    json.getId(),
+                    json.getParentid(),
+                    json.getPath(),
+                    json.getRedirect(),
+                    json.getName(),
+                    json.getComponent(),
+                    json.getIcon(),
+                    json.getTitle(),
+                    new Meta(json.getTitle())
+            );
+
+
+            //添加每个实体类对象到list集合
+            menuList.add(menu);
+        }
+
+        //调用TreeTest工具类方法生成树形结构的List集合
+        List<MenuModel> treeList = TreeUtil.listToTree(menuList);
+
+
+        return treeList;
+    }
+
 
 }

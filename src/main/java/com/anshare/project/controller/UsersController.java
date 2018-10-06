@@ -5,10 +5,7 @@ import com.anshare.project.model.Users;
 import com.anshare.project.service.UsersService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.annotation.Resource;
@@ -30,7 +27,7 @@ public class UsersController {
     @ApiOperation(value = "addUsers")
 
     @PostMapping("/add")
-    public Result add(Users users) {
+    public Result add(@RequestBody Users users) {
         usersService.save(users,true);
         return ResultGenerator.genSuccessResult();
     }
@@ -44,7 +41,7 @@ public class UsersController {
     @ApiOperation(value = "updateUsers")
 
     @PostMapping("/update")
-    public Result update(Users users) {
+    public Result update(@RequestBody Users users) {
         usersService.update(users);
         return ResultGenerator.genSuccessResult();
     }

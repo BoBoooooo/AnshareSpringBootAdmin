@@ -1,16 +1,15 @@
 package com.anshare.project.controller;
+
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.Person;
 import com.anshare.project.service.PersonService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class PersonController {
     @ApiOperation(value = "addPerson")
 
     @PostMapping("/add")
-    public Result add(Person person) {
+    public Result add(@RequestBody Person person) {
         personService.save(person,true);
         return ResultGenerator.genSuccessResult();
     }
@@ -41,7 +40,7 @@ public class PersonController {
     @ApiOperation(value = "updatePerson")
 
     @PostMapping("/update")
-    public Result update(Person person) {
+    public Result update(@RequestBody Person person) {
         personService.update(person);
         return ResultGenerator.genSuccessResult();
     }

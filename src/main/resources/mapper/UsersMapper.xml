@@ -25,7 +25,7 @@
     FROM
         Users u
      JOIN Role r   ON u.roleid = r.id
-     JOIN Dept d   ON u.deptid = d.id
+     JOIN Dept d   ON u.deptid = d.id WHERE u.IsDeleted =0
 
 </select>
 
