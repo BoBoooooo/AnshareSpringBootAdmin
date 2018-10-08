@@ -1,6 +1,6 @@
 package com.anshare.project.core.Util;
 
-import com.anshare.project.configurer.ConstantKey;
+import com.anshare.project.configurer.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,7 @@ public class JwtUtil {
         String jwt = request.getHeader("auth");
 
         Claims claims = Jwts.parser()
-                .setSigningKey(ConstantKey.SIGNING_KEY)
+                .setSigningKey(JwtConfig.SIGNING_KEY)
                 .parseClaimsJws(jwt).getBody();
         System.out.println("ID: " + claims.getId());
         System.out.println("Subject: " + claims.getSubject());

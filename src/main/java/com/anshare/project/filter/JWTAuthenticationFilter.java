@@ -1,6 +1,6 @@
 package com.anshare.project.filter;
 
-import com.anshare.project.configurer.ConstantKey;
+import com.anshare.project.configurer.JwtConfig;
 import com.anshare.project.core.RedisService;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -83,7 +83,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(ConstantKey.SIGNING_KEY)
+                    .setSigningKey(JwtConfig.SIGNING_KEY)
                     .parseClaimsJws(token)
                     .getBody();
 

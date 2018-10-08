@@ -1,7 +1,7 @@
 package com.anshare.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.anshare.project.configurer.ConstantKey;
+import com.anshare.project.configurer.JwtConfig;
 import com.anshare.project.core.RedisService;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
@@ -69,8 +69,8 @@ public class LoginController {
                 long time = System.currentTimeMillis();
                 String token = Jwts.builder()
                         .setSubject(subject)
-                        .setExpiration(new Date(time + 24 * 60 * 60 * 1000)) // 设置过期时间 1 * 24 * 60 * 60秒情况修改)
-                        .signWith(SignatureAlgorithm.HS512, ConstantKey.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
+                        .setExpiration(new Date(time + JwtConfig.Time)) // 设置过期时间 1 * 24 * 60 * 60秒情况修改)
+                        .signWith(SignatureAlgorithm.HS512, JwtConfig.SIGNING_KEY) //采用什么算法是可以自己选择的，不一定非要采用HS512
                         .compact();
                 // 登录成功后，返回token到header里面
                 redisService.setStr(user.getUsername(), token);
