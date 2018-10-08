@@ -26,9 +26,6 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     @Resource
     private MenuMapper menuMapper;
 
-
-
-
     //查询所有菜单列表
     public List<MenuModel> GetMenuTree() {
 

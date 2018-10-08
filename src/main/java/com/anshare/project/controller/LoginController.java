@@ -2,10 +2,10 @@ package com.anshare.project.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.anshare.project.configurer.ConstantKey;
-import com.anshare.project.core.Util.JwtUtil;
 import com.anshare.project.core.RedisService;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
+import com.anshare.project.core.Util.JwtUtil;
 import com.anshare.project.model.Role;
 import com.anshare.project.model.Users;
 import com.anshare.project.service.MenuService;
@@ -52,6 +52,9 @@ public class LoginController {
                 .andEqualTo("password", password);
 
         List<Users> userVo = usersService.findByCondition(condition);
+
+
+
         if (userVo != null && userVo.size() > 0) {
             Users user = userVo.get(0);
 
@@ -168,5 +171,18 @@ public class LoginController {
 
 
     }
+
+
+
+    @ApiOperation(value = "test 异常")
+    @PostMapping(value = "/test")
+    public Result getvaluebykey() {
+
+
+        throw new SecurityException("测试");
+
+
+    }
+
 
 }
