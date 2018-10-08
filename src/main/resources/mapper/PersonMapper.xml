@@ -6,13 +6,42 @@
       WARNING - @mbg.generated
     -->
     <id column="ID" jdbcType="CHAR" property="id" />
-    <result column="DeptID" jdbcType="CHAR" property="deptid" />
-    <result column="No" jdbcType="INTEGER" property="no" />
+    <result column="HandleStaff" jdbcType="CHAR" property="handlestaff" />
+    <result column="HandleDept" jdbcType="CHAR" property="handledept" />
+    <result column="IdCard" jdbcType="VARCHAR" property="idcard" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="Workduty" jdbcType="VARCHAR" property="workduty" />
+    <result column="WorkUnit" jdbcType="VARCHAR" property="workunit" />
+    <result column="UnitId" jdbcType="CHAR" property="unitid" />
+    <result column="WorkDuty" jdbcType="VARCHAR" property="workduty" />
+    <result column="WorkCharge" jdbcType="VARCHAR" property="workcharge" />
+    <result column="WorkLevel" jdbcType="VARCHAR" property="worklevel" />
+    <result column="DutyTime" jdbcType="VARCHAR" property="dutytime" />
+    <result column="LevelTime" jdbcType="VARCHAR" property="leveltime" />
     <result column="WorkTime" jdbcType="VARCHAR" property="worktime" />
     <result column="Gender" jdbcType="VARCHAR" property="gender" />
+    <result column="Nation" jdbcType="VARCHAR" property="nation" />
+    <result column="NativePlace" jdbcType="VARCHAR" property="nativeplace" />
+    <result column="BirthDate" jdbcType="VARCHAR" property="birthdate" />
+    <result column="BirthPlace" jdbcType="VARCHAR" property="birthplace" />
+    <result column="GrowPlace" jdbcType="VARCHAR" property="growplace" />
+    <result column="PartyDate" jdbcType="VARCHAR" property="partydate" />
+    <result column="PoliticsStatus" jdbcType="VARCHAR" property="politicsstatus" />
+    <result column="Marriage" jdbcType="VARCHAR" property="marriage" />
+    <result column="Health" jdbcType="VARCHAR" property="health" />
+    <result column="Education" jdbcType="VARCHAR" property="education" />
+    <result column="School" jdbcType="VARCHAR" property="school" />
+    <result column="Major" jdbcType="VARCHAR" property="major" />
+    <result column="HighestEducation" jdbcType="VARCHAR" property="highesteducation" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Skill" jdbcType="VARCHAR" property="skill" />
+    <result column="Democratic" jdbcType="VARCHAR" property="democratic" />
+    <result column="Score" jdbcType="INTEGER" property="score" />
+    <result column="Score2" jdbcType="INTEGER" property="score2" />
+    <result column="Photo" jdbcType="VARCHAR" property="photo" />
+    <result column="Punish" jdbcType="VARCHAR" property="punish" />
+    <result column="PunishTime" jdbcType="VARCHAR" property="punishtime" />
+    <result column="Sequence" jdbcType="INTEGER" property="sequence" />
     <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
     <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
   </resultMap>
