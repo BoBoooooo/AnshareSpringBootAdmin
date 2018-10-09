@@ -43,6 +43,19 @@ public class ${modelNameUpperCamel}Controller {
         ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
         return ResultGenerator.genSuccessResult("更新成功");
     }
+
+
+
+    @ApiOperation(value = "获取${modelNameUpperCamel}对象所有字段")
+
+    @PostMapping("/Getkey")
+    public Result Getkey() {
+${modelNameLowerCamel} ${modelNameLowerCamel} = new ${modelNameLowerCamel}();
+        return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
+    }
+
+
+
     @ApiOperation(value = "detail${modelNameUpperCamel}")
 
     @PostMapping("/detail")

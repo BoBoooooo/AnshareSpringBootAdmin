@@ -48,6 +48,19 @@ public class PersonController {
         personService.update(person);
         return ResultGenerator.genSuccessResult("更新成功");
     }
+
+
+
+    @ApiOperation(value = "获取Person对象所有字段")
+
+    @PostMapping("/Getkey")
+    public Result Getkey() {
+        Person person = new Person();
+        return ResultGenerator.genSuccessResult(person);
+    }
+
+
+
     @ApiOperation(value = "detailPerson")
 
     @PostMapping("/detail")
