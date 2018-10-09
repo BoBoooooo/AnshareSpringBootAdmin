@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,29 +58,28 @@ public class PersonController {
     @ApiOperation(value = "listPerson")
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize, @RequestParam(defaultValue = "") String SearchQuery , @RequestParam(defaultValue = "") String SearchValue) {
+    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
+                       @RequestParam(defaultValue = "0") Integer pageSize,
+                       @RequestParam(required = false,defaultValue = "") String SearchQuery ,
+                       @RequestParam(required = false,defaultValue = "") String SearchValue)
+    {
         PageHelper.startPage(pageNumber, pageSize);
         Condition condition = new Condition(Person.class);
 
-
-
+        Example.Criteria criteria  = condition.createCriteria();
         String[] details = JwtUtil.GetDetails();
+
+
+        criteria.andEqualTo("handledept", details[3]);
+
+
 
         if(!SearchQuery.isEmpty()&&!SearchValue.isEmpty())
         {
-            condition.createCriteria()
-                    .andEqualTo("handledept", details[3])
-                    .andEqualTo(SearchQuery, SearchValue);
+            criteria.andEqualTo(SearchQuery, SearchValue);
         }
 
-        else
-        {
-            condition.createCriteria()
-                .andEqualTo("handledept", details[3]);
 
-
-
-        }
 
         List<Person> list = personService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
