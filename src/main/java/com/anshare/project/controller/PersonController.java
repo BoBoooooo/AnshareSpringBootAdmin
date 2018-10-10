@@ -73,7 +73,7 @@ public class PersonController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
                        @RequestParam(defaultValue = "0") Integer pageSize,
-                       @RequestParam(required = false,defaultValue = "") String SearchQuery ,
+                       @RequestParam(required = false,defaultValue = "") String SearchKey ,
                        @RequestParam(required = false,defaultValue = "") String SearchValue)
     {
         PageHelper.startPage(pageNumber, pageSize);
@@ -87,9 +87,9 @@ public class PersonController {
 
 
 
-        if(!SearchQuery.isEmpty()&&!SearchValue.isEmpty())
+        if(!SearchKey.isEmpty()&&!SearchValue.isEmpty())
         {
-            criteria.andEqualTo(SearchQuery, SearchValue);
+            criteria.andEqualTo(SearchKey, SearchValue);
         }
 
 
