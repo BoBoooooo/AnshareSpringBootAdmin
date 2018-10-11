@@ -12,6 +12,6 @@ import java.util.List;
 public interface MenuService extends Service<Menu> {
     public List<MenuModel> GetMenuTree();
     public List<MenuModel> GetMenuTreeByRoleID (String RoleID);
-    public List<MenuModel> GetMenuTreeByRoleIDWithAllProp (String RoleID);
+    public List<Menu> GetMenuTreeByRoleIDWithAllProp (String RoleID);
 
 }

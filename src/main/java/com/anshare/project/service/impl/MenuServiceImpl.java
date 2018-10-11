@@ -117,40 +117,13 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     //查询某个角色所拥有的菜单(不过滤ID等属性)
 
 
-    public List<MenuModel> GetMenuTreeByRoleIDWithAllProp(String RoleID) {
+    public List<Menu> GetMenuTreeByRoleIDWithAllProp(String RoleID) {
 
         List<Menu> json_ = menuMapper.GetMenuTreeByRoleID(RoleID);
 
-        //定义list集合,存储从数据库查询出的所有记录
-        List<MenuModel> menuList = new ArrayList<MenuModel>();
-
-        // String id, String pid, String path, String redirect, String name, String component, Boolean alwaysShow, String menu
-        //遍历集合
-        for (Menu json : json_) {
-
-            //手动封装Menu实体类对象
-            MenuModel menu = new MenuModel(
-                    json.getId(),
-                    json.getParentid(),
-                    json.getPath(),
-                    json.getRedirect(),
-                    json.getName(),
-                    json.getComponent(),
-                    json.getIcon(),
-                    json.getTitle(),
-                    new Meta(json.getTitle())
-            );
 
 
-            //添加每个实体类对象到list集合
-            menuList.add(menu);
-        }
-
-        //调用TreeTest工具类方法生成树形结构的List集合
-        List<MenuModel> treeList = TreeUtil.listToTree(menuList);
-
-
-        return treeList;
+        return json_;
     }
 
 

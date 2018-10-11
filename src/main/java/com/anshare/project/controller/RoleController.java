@@ -1,9 +1,10 @@
 package com.anshare.project.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
-import com.anshare.project.model.MenuModel;
+import com.anshare.project.model.Menu;
 import com.anshare.project.model.Role;
 import com.anshare.project.model.Rolemenu;
 import com.anshare.project.service.MenuService;
@@ -95,8 +96,10 @@ public class RoleController {
 
     @PostMapping(value = "/update", produces = "application/json;charset=UTF-8")
     public Result update(@RequestBody Map<String, Object> temp) {
-        Role role = (Role) temp.get("Role");
-        List<String> menuid = (List<String>) temp.get("MenuList"); //角色勾选的菜单id数组
+
+        Role role = JSONObject.parseObject(JSON.toJSONString(temp.get("Role")),Role.class);
+
+        List<String> menuid = JSONObject.parseArray(JSON.toJSONString(temp.get("MenuList")),String.class); //角色勾选的菜单id数组
 
         //先清空rolemenu表中roleid相关数据
 
@@ -113,9 +116,11 @@ public class RoleController {
             Rolemenu t = new Rolemenu();
             t.setRoleid(role.getId());
             t.setMenuid(str);
-            rolemenulist.add(t);
+            rolemenuService.save(t,true); //batch批量insert
+
+//            t.setId(UUID.randomUUID().toString());
+//            rolemenulist.add(t);
         }
-        rolemenuService.save(rolemenulist); //batch批量insert
         roleService.update(role);
         return ResultGenerator.genSuccessResult("更新成功");
     }
@@ -126,11 +131,11 @@ public class RoleController {
     @PostMapping("/detail")
     public Result detail(@RequestParam String id) {
         Role role = roleService.findById(id);
-        List<MenuModel> menuList = menuService.GetMenuTreeByRoleIDWithAllProp(id);
+        List<Menu> menuList = menuService.GetMenuTreeByRoleIDWithAllProp(id);
 
         List<String> menuid_list = new ArrayList<String>();
 
-        for (MenuModel a : menuList) {
+        for (Menu a : menuList) {
             menuid_list.add(a.getId());
         }
         JSONObject temp = new JSONObject();

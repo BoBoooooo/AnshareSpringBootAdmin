@@ -70,11 +70,11 @@ public class MenuController {
     }
 
 
-    @ApiOperation(value = "获取某个角色拥有的菜单tree json")
+    @ApiOperation(value = "获取某个角色拥有的菜单 json")
 
     @PostMapping("/MenuTreeByRoleID")
     public Result list(@RequestParam String roleid) {
-        List<MenuModel> list = menuService.GetMenuTreeByRoleIDWithAllProp(roleid);
+        List<Menu> list = menuService.GetMenuTreeByRoleIDWithAllProp(roleid);
         return ResultGenerator.genSuccessResult(list);
     }
 }
