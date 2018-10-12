@@ -15,6 +15,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by Anshare on 2018/10/08.
@@ -55,8 +56,8 @@ public class PersonController {
 
     @PostMapping("/Getkey")
     public Result Getkey() {
-        Person person = new Person();
-        return ResultGenerator.genSuccessResult(person);
+        List<Map<String,Object>> obj = personService.getObj();
+        return ResultGenerator.genSuccessResult(obj);
     }
 
 

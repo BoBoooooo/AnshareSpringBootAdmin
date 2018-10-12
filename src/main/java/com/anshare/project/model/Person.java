@@ -1,7 +1,10 @@
 package com.anshare.project.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
 public class Person {
     @Id
@@ -183,20 +186,11 @@ public class Person {
     @Column(name = "Democratic")
     private String democratic;
 
-    @Column(name = "Score")
-    private Integer score;
-
-    @Column(name = "Score2")
-    private Integer score2;
 
     @Column(name = "Photo")
     private String photo;
 
-    @Column(name = "Punish")
-    private String punish;
 
-    @Column(name = "PunishTime")
-    private String punishtime;
 
     @Column(name = "Sequence")
     private Integer sequence;
@@ -753,33 +747,6 @@ public class Person {
         this.democratic = democratic;
     }
 
-    /**
-     * @return Score
-     */
-    public Integer getScore() {
-        return score;
-    }
-
-    /**
-     * @param score
-     */
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    /**
-     * @return Score2
-     */
-    public Integer getScore2() {
-        return score2;
-    }
-
-    /**
-     * @param score2
-     */
-    public void setScore2(Integer score2) {
-        this.score2 = score2;
-    }
 
     /**
      * @return Photo
@@ -795,33 +762,6 @@ public class Person {
         this.photo = photo;
     }
 
-    /**
-     * @return Punish
-     */
-    public String getPunish() {
-        return punish;
-    }
-
-    /**
-     * @param punish
-     */
-    public void setPunish(String punish) {
-        this.punish = punish;
-    }
-
-    /**
-     * @return PunishTime
-     */
-    public String getPunishtime() {
-        return punishtime;
-    }
-
-    /**
-     * @param punishtime
-     */
-    public void setPunishtime(String punishtime) {
-        this.punishtime = punishtime;
-    }
 
     /**
      * @return Sequence

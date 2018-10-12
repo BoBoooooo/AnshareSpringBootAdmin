@@ -36,13 +36,22 @@
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="Skill" jdbcType="VARCHAR" property="skill" />
     <result column="Democratic" jdbcType="VARCHAR" property="democratic" />
-    <result column="Score" jdbcType="INTEGER" property="score" />
-    <result column="Score2" jdbcType="INTEGER" property="score2" />
     <result column="Photo" jdbcType="VARCHAR" property="photo" />
-    <result column="Punish" jdbcType="VARCHAR" property="punish" />
-    <result column="PunishTime" jdbcType="VARCHAR" property="punishtime" />
     <result column="Sequence" jdbcType="INTEGER" property="sequence" />
     <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
     <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
   </resultMap>
+
+
+  <select id="getObj" resultType="java.util.Map">
+    SELECT
+	COLUMN_NAME,COLUMN_COMMENT
+FROM
+	INFORMATION_SCHEMA.COLUMNS
+WHERE
+	table_name = 'Person'
+	and COLUMN_COMMENT not like "%ID%"
+	and COLUMN_COMMENT not like "%Expect%"
+
+  </select>
 </mapper>

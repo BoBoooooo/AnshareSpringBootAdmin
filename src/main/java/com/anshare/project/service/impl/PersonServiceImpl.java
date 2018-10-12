@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
+import java.util.Map;
+import java.util.List;
 
 /**
  * Created by Anshare on 2018/10/08.
@@ -18,5 +19,11 @@ import javax.annotation.Resource;
 public class PersonServiceImpl extends AbstractService<Person> implements PersonService {
     @Resource
     private PersonMapper personMapper;
+
+    public List<Map<String,Object>> getObj(){
+
+      return  personMapper.getObj();
+
+    }
 
 }
