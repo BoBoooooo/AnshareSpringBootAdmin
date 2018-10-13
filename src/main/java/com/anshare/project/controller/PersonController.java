@@ -31,6 +31,10 @@ public class PersonController {
 
     @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
     public Result add(@RequestBody Person person) {
+        String [] details = JwtUtil.GetDetails();
+
+        person.setHandlestaff(details[4]);
+        person.setHandledept(details[3]);
         personService.save(person,true);
         return ResultGenerator.genSuccessResult("保存成功");
     }
@@ -46,6 +50,7 @@ public class PersonController {
 
     @PostMapping(value = "/update",produces = "application/json;charset=UTF-8")
     public Result update(@RequestBody Person person) {
+
         personService.update(person);
         return ResultGenerator.genSuccessResult("更新成功");
     }

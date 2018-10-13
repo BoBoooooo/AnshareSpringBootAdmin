@@ -50,7 +50,7 @@ public class ${modelNameUpperCamel}Controller {
 
     @PostMapping("/Getkey")
     public Result Getkey() {
-${modelNameLowerCamel} ${modelNameLowerCamel} = new ${modelNameLowerCamel}();
+${modelNameUpperCamel} ${modelNameLowerCamel} = new ${modelNameUpperCamel}();
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
 

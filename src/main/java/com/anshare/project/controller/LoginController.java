@@ -65,7 +65,8 @@ public class LoginController {
                 String subject = user.getUsername() + ","
                         + user.getRealname() + ","
                         + user.getRoleid()+","
-                       + user.getDeptid();
+                       + user.getDeptid()+","
+                        + user.getId();
                 long time = System.currentTimeMillis();
                 String token = Jwts.builder()
                         .setSubject(subject)
