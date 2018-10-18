@@ -110,8 +110,8 @@ public class LoginController {
             JSONObject json = new JSONObject();
             json.put("RealName", RealName);
             json.put("UserName", UserName);
-            json.put("Routers",menuService.GetMenuTreeByRoleID(RoleID) );
-
+//            json.put("Routers",menuService.GetMenuTreeByRoleID(RoleID) );
+            json.put("RoleAuthName",roleService.findById(RoleID).getRoleauthname());
             return ResultGenerator.genSuccessResult(json);
 
         } else {
