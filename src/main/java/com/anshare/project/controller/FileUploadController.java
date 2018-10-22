@@ -14,8 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.UUID;
-
+import java.io.File;
 /**
  * Created by Anshare on 2018/09/27.
  */
@@ -38,21 +39,26 @@ public class FileUploadController {
 
     public Result Upload(@RequestParam("file") MultipartFile file,@RequestParam("MasterID") String MasterID,
                   HttpServletRequest request) {
+        String savename = UUID.randomUUID().toString();
+
         String fileName = file.getOriginalFilename();
         String fileExtension = "."+FileUtil.getExtensionName(fileName);
         /*System.out.println("fileName-->" + fileName);
         System.out.println("getContentType-->" + contentType);*/
-        String filePath = request.getSession().getServletContext().getRealPath("UploadFiles/");
-        System.out.println(filePath);
+        String filePath = "/Users/BoBo/AnshareSpringBootAdmin/src/main/UploadFiles";
+        File dest = new File(filePath + savename+fileExtension);
         try {
-            String savename = UUID.randomUUID().toString();
+            file.transferTo(dest);
+        } catch (IOException e) {
+        }
+       System.out.println(filePath);
+        try {
 
             Affix temp = new Affix();
             temp.setFilename(fileName);
             temp.setFileextension(fileExtension);
             temp.setMasterid(MasterID);
             temp.setSavename(savename+fileExtension);
-            FileUtil.uploadFile(file.getBytes(), filePath, temp.getSavename());
 
             affixService.save(temp,true);
             return ResultGenerator.genSuccessResult("上传成功");
