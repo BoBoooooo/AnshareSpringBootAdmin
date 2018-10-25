@@ -4,17 +4,23 @@ import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.FileUtil;
 import com.anshare.project.model.Affix;
+import com.anshare.project.model.Person;
 import com.anshare.project.service.AffixService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -28,6 +34,9 @@ public class FileUploadController {
 
     @Resource
     private AffixService affixService;
+
+
+    @Resource
 
     @ApiOperation(value = "上传文件")
 
@@ -131,5 +140,24 @@ public class FileUploadController {
 
     }
 
+    @PostMapping("/list")
+    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
+                       @RequestParam(defaultValue = "0") Integer pageSize,
+                       @RequestParam(defaultValue = "0") String MasterID)
+    {
+        PageHelper.startPage(pageNumber, pageSize);
+        Condition condition = new Condition(Person.class);
 
+        Example.Criteria criteria  = condition.createCriteria();
+
+
+        criteria.andEqualTo("MasterID", MasterID);
+
+
+
+
+        List<Affix> list = affixService.findByCondition(condition);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
 }
