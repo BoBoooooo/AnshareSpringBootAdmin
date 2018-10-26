@@ -4,7 +4,6 @@ import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.FileUtil;
 import com.anshare.project.model.Affix;
-import com.anshare.project.model.Person;
 import com.anshare.project.service.AffixService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,7 +35,6 @@ public class FileUploadController {
     private AffixService affixService;
 
 
-    @Resource
 
     @ApiOperation(value = "上传文件")
 
@@ -45,7 +43,7 @@ public class FileUploadController {
     public Result Upload(@RequestParam("file") MultipartFile file,
                          HttpServletRequest request) {
         String savename = UUID.randomUUID().toString();
-  String MasterID  =  request.getParameter("MasterID");
+        String MasterID = request.getParameter("MasterID");
         String fileName = file.getOriginalFilename();
         String fileExtension = "." + FileUtil.getExtensionName(fileName);
         /*System.out.println("fileName-->" + fileName);
@@ -75,6 +73,7 @@ public class FileUploadController {
         }
         //返回json
     }
+
     @ApiOperation(value = "下载文件")
 
     @GetMapping("/download")
@@ -92,7 +91,7 @@ public class FileUploadController {
                 response.setContentType("application/octet-stream");// 设置强制下载不打开
                 response.addHeader("Content-Disposition",
                         "attachment; filename=" +
-                                URLEncoder.encode(temp.getFilename(),"UTF-8")
+                                URLEncoder.encode(temp.getFilename(), "UTF-8")
 
 
                 );
@@ -143,21 +142,34 @@ public class FileUploadController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
                        @RequestParam(defaultValue = "0") Integer pageSize,
-                       @RequestParam(defaultValue = "0") String MasterID)
-    {
+                       @RequestParam(defaultValue = "") String MasterID) {
         PageHelper.startPage(pageNumber, pageSize);
-        Condition condition = new Condition(Person.class);
+        Condition condition = new Condition(Affix.class);
 
-        Example.Criteria criteria  = condition.createCriteria();
-
-
-        criteria.andEqualTo("MasterID", MasterID);
+        Example.Criteria criteria = condition.createCriteria();
 
 
+        criteria.andEqualTo("masterid", MasterID);
+        criteria.andEqualTo("isdeleted", false);
 
 
         List<Affix> list = affixService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+
+    @GetMapping("/delete")
+    public Result Delete(@RequestParam("AffixID") String AffixID, HttpServletResponse response) throws UnsupportedEncodingException {
+
+            affixService.deleteById(AffixID);
+            return ResultGenerator.genSuccessResult("删除成功");
+
+
+    }
+
+
+
+
+
 }
