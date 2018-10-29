@@ -8,7 +8,6 @@ import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.JwtUtil;
 import com.anshare.project.model.Role;
 import com.anshare.project.model.Users;
-import com.anshare.project.service.MenuService;
 import com.anshare.project.service.RoleService;
 import com.anshare.project.service.UsersService;
 import io.jsonwebtoken.Jwts;
@@ -39,8 +38,6 @@ public class LoginController {
     private RoleService roleService;
     @Resource
     private RedisService redisService;
-    @Resource
-    private MenuService menuService;
 
     @ApiOperation(value = "登录接口")
     @PostMapping(value = "/login")

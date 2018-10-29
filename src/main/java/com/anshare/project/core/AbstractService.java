@@ -32,9 +32,6 @@ public abstract class AbstractService<T> implements Service<T> {
         Field field = null;
         try {
 
-
-
-
             if(setGuid)
             {
 
