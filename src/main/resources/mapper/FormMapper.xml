@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.FormMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.Form">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="Table_Name" jdbcType="VARCHAR" property="tableName" />
+    <result column="Form_Json" jdbcType="LONGVARCHAR" property="formJson" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+  </resultMap>
+
+
+  <select id="getTables" resultType="java.util.Map">
+    SELECT
+  table_name
+FROM
+  information_schema.tables
+WHERE table_schema = 'AnshareAdmin'
+
+  </select>
+
+</mapper>
