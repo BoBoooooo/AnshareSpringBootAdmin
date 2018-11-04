@@ -38,7 +38,7 @@ public class FileUploadController {
 
     @ApiOperation(value = "上传文件")
 
-    @PostMapping("/Upload")
+    @PostMapping("/upload")
 
     public Result Upload(@RequestParam("file") MultipartFile file,
                          HttpServletRequest request) {

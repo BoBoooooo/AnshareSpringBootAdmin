@@ -35,7 +35,7 @@ public class PersonController {
 
         person.setHandlestaff(details[4]);
         person.setHandledept(details[3]);
-        personService.save(person,true);
+        personService.save(person,false);
         return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "deletePerson")
@@ -57,12 +57,17 @@ public class PersonController {
 
 
 
-    @ApiOperation(value = "获取Person对象所有字段")
+    @ApiOperation(value = "获取Person对象所有字段以及对应的类型，注释")
 
     @PostMapping("/Getkey")
     public Result Getkey() {
         List<Map<String,Object>> obj = personService.getObj();
         return ResultGenerator.genSuccessResult(obj);
+    }
+
+    @PostMapping("/getObj")
+    public Result getObj() {
+        return ResultGenerator.genSuccessResult(new Person());
     }
 
 
