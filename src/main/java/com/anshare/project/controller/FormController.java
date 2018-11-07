@@ -43,13 +43,19 @@ public class FormController {
 
     @ApiOperation(value = "获取所有的表名")
 
-    @PostMapping("/GetTables")
-    public Result GetTables() {
+    @PostMapping("/getTables")
+    public Result getTables() {
         List<Map<String,Object>> list =  formService.getTables();
         return ResultGenerator.genSuccessResult(list);
     }
 
+    @ApiOperation(value = "获取某表所有字段以及对应的类型，注释")
 
+    @PostMapping("/getKey")
+    public Result getkey(@RequestParam String tablename) {
+        List<Map<String,Object>> obj = formService.getObj(tablename);
+        return ResultGenerator.genSuccessResult(obj);
+    }
 
     @ApiOperation(value = "detailForm")
 

@@ -178,6 +178,8 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public List<T> findByCondition(Condition condition) {
+        condition.createCriteria()
+                .andEqualTo("isdeleted",false);
         return mapper.selectByCondition(condition);
     }
 

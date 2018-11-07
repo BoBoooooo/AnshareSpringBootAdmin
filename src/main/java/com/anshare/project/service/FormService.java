@@ -11,5 +11,7 @@ import java.util.Map;
  */
 public interface FormService extends Service<Form> {
     public List<Map<String,Object>> getTables();
+    public List<Map<String,Object>> getObj(String tablename);
+
 
 }

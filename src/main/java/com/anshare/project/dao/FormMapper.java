@@ -9,5 +9,6 @@ import java.util.Map;
 public interface FormMapper extends Mapper<Form> {
 
     public List<Map<String,Object>> getTables();
+    public List<Map<String,Object>> getObj(String tablename);
 
 }

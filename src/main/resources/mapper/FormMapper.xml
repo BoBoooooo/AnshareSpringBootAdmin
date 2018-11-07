@@ -22,4 +22,20 @@ WHERE table_schema = 'AnshareAdmin'
 
   </select>
 
+
+
+  <select id="getObj" resultType="java.util.Map" parameterType="String">
+    SELECT
+	COLUMN_NAME,COLUMN_COMMENT,COLUMN_TYPE
+FROM
+	INFORMATION_SCHEMA.COLUMNS
+WHERE
+	table_name = #{tablename}
+	and COLUMN_COMMENT not like "%ID%"
+	and COLUMN_COMMENT not like "%IsDeleted%"
+	and COLUMN_COMMENT not like "%TimeStamp%"
+
+
+  </select>
+
 </mapper>

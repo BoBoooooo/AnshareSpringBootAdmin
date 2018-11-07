@@ -25,5 +25,9 @@ public class FormServiceImpl extends AbstractService<Form> implements FormServic
         return  formMapper.getTables();
 
     }
+    public List<Map<String,Object>> getObj(String tablename){
 
+        return  formMapper.getObj(tablename);
+
+    }
 }
