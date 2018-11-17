@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
  * 从http头的Authorization 项读取token数据，然后用Jwts包提供的方法校验token的合法性。
  * 如果校验通过，就认为这是一个取得授权的合法请求
  */
+@EnableWebMvc
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
 

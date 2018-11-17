@@ -48,13 +48,13 @@ public class FileUploadController {
         String fileExtension = "." + FileUtil.getExtensionName(fileName);
         /*System.out.println("fileName-->" + fileName);
         System.out.println("getContentType-->" + contentType);*/
-        String filePath = "/Users/BoBo/AnshareSpringBootAdmin/src/main/UploadFiles/";
-        File dest = new File(filePath + savename + fileExtension);
+        String uploadDir = request.getSession().getServletContext().getRealPath("/") +"upload/";
+        File dest = new File(uploadDir + savename + fileExtension);
         try {
             file.transferTo(dest);
         } catch (IOException e) {
         }
-        System.out.println(filePath);
+        System.out.println(uploadDir);
         try {
 
             Affix temp = new Affix();

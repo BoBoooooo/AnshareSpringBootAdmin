@@ -150,6 +150,11 @@
             <optional>true</optional>
             <scope>true</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.3.17.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
