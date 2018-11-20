@@ -96,6 +96,7 @@ public class PersonController {
 
         criteria.andEqualTo("handledept", details[3]);
 
+        criteria.andEqualTo("isdeleted", false);
 
 
         if(!SearchKey.isEmpty()&&!SearchValue.isEmpty())
