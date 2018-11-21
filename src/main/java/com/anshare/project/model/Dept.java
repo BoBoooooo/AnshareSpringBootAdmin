@@ -1,7 +1,14 @@
 package com.anshare.project.model;
 
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
+
+@Data
 
 public class Dept {
     @Id
@@ -24,87 +31,4 @@ public class Dept {
     @Column(name = "DeptName")
     private String deptname;
 
-    /**
-     * @return ID
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return ParentID
-     */
-    public String getParentid() {
-        return parentid;
-    }
-
-    /**
-     * @param parentid
-     */
-    public void setParentid(String parentid) {
-        this.parentid = parentid;
-    }
-
-    /**
-     * @return Rank
-     */
-    public Integer getRank() {
-        return rank;
-    }
-
-    /**
-     * @param rank
-     */
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
-
-    /**
-     * @return IsDeleted
-     */
-    public Boolean getIsdeleted() {
-        return isdeleted;
-    }
-
-    /**
-     * @param isdeleted
-     */
-    public void setIsdeleted(Boolean isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    /**
-     * @return Timestamp
-     */
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp
-     */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * @return DeptName
-     */
-    public String getDeptname() {
-        return deptname;
-    }
-
-    /**
-     * @param deptname
-     */
-    public void setDeptname(String deptname) {
-        this.deptname = deptname;
-    }
 }

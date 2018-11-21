@@ -1,8 +1,13 @@
 package com.anshare.project.model;
 
-import java.util.Date;
-import javax.persistence.*;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+@Data
 public class Affix {
     @Id
     @Column(name = "ID")
@@ -33,119 +38,5 @@ public class Affix {
     @Column(name = "FileExtension")
     private String fileextension;
 
-    /**
-     * @return ID
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * 获取资源ID
-     *
-     * @return MasterID - 资源ID
-     */
-    public String getMasterid() {
-        return masterid;
-    }
-
-    /**
-     * 设置资源ID
-     *
-     * @param masterid 资源ID
-     */
-    public void setMasterid(String masterid) {
-        this.masterid = masterid;
-    }
-
-    /**
-     * @return Type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     * @return IsDeleted
-     */
-    public Boolean getIsdeleted() {
-        return isdeleted;
-    }
-
-    /**
-     * @param isdeleted
-     */
-    public void setIsdeleted(Boolean isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    /**
-     * @return Timestamp
-     */
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp
-     */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * @return FileName
-     */
-    public String getFilename() {
-        return filename;
-    }
-
-    /**
-     * @param filename
-     */
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    /**
-     * @return SaveName
-     */
-    public String getSavename() {
-        return savename;
-    }
-
-    /**
-     * @param savename
-     */
-    public void setSavename(String savename) {
-        this.savename = savename;
-    }
-
-    /**
-     * @return FileExtension
-     */
-    public String getFileextension() {
-        return fileextension;
-    }
-
-    /**
-     * @param fileextension
-     */
-    public void setFileextension(String fileextension) {
-        this.fileextension = fileextension;
-    }
+   
 }

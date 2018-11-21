@@ -1,7 +1,13 @@
 package com.anshare.project.model;
 
-import javax.persistence.*;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
+@Data
 
 public class Form {
     @Id
@@ -21,67 +27,6 @@ public class Form {
     @Column(name = "Timestamp")
     private Date timestamp;
 
-    /**
-     * @return ID
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return Table_Name
-     */
-    public String getTableName() {
-        return tableName;
-    }
-
-    /**
-     * @param tableName
-     */
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    /**
-     * @return Form_Json
-     */
-    public String getFormJson() {
-        return formJson;
-    }
-
-    /**
-     * @param formJson
-     */
-    public void setFormJson(String formJson) {
-        this.formJson = formJson;
-    }
-
-    /**
-     * @param isdeleted
-     */
-    public void setIsdeleted(Boolean isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    /**
-     * @return Timestamp
-     */
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp
-     */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
 
 }

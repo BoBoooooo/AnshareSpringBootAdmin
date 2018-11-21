@@ -1,8 +1,13 @@
 package com.anshare.project.model;
 
-import java.util.Date;
-import javax.persistence.*;
+import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+@Data
 public class Role {
     @Id
     @Column(name = "ID")
@@ -24,87 +29,5 @@ public class Role {
     @Column(name = "RoleName")
     private String rolename;
 
-    /**
-     * @return ID
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return RoleAuthName
-     */
-    public String getRoleauthname() {
-        return roleauthname;
-    }
-
-    /**
-     * @param roleauthname
-     */
-    public void setRoleauthname(String roleauthname) {
-        this.roleauthname = roleauthname;
-    }
-
-    /**
-     * @return Rank
-     */
-    public Integer getRank() {
-        return rank;
-    }
-
-    /**
-     * @param rank
-     */
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
-
-    /**
-     * @return IsDeleted
-     */
-    public Boolean getIsdeleted() {
-        return isdeleted;
-    }
-
-    /**
-     * @param isdeleted
-     */
-    public void setIsdeleted(Boolean isdeleted) {
-        this.isdeleted = isdeleted;
-    }
-
-    /**
-     * @return Timestamp
-     */
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp
-     */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /**
-     * @return RoleName
-     */
-    public String getRolename() {
-        return rolename;
-    }
-
-    /**
-     * @param rolename
-     */
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
 }
