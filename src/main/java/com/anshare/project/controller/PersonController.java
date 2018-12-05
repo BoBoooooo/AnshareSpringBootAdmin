@@ -3,6 +3,8 @@ package com.anshare.project.controller;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.JwtUtil;
+import com.anshare.project.model.ListQuery;
+import com.anshare.project.model.ListQueryItem;
 import com.anshare.project.model.Person;
 import com.anshare.project.service.PersonService;
 import com.github.pagehelper.PageHelper;
@@ -82,12 +84,9 @@ public class PersonController {
     @ApiOperation(value = "listPerson")
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
-                       @RequestParam(defaultValue = "0") Integer pageSize,
-                       @RequestParam(required = false,defaultValue = "") String SearchKey ,
-                       @RequestParam(required = false,defaultValue = "") String SearchValue)
+    public Result list(@RequestBody ListQuery params)
     {
-        PageHelper.startPage(pageNumber, pageSize);
+        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
         Condition condition = new Condition(Person.class);
 
         Example.Criteria criteria  = condition.createCriteria();
@@ -98,13 +97,19 @@ public class PersonController {
 
         criteria.andEqualTo("isdeleted", false);
 
+        List<ListQueryItem> searchList = params.getSearchArr();
 
-        if(!SearchKey.isEmpty()&&!SearchValue.isEmpty())
+        if(searchList.size()!=0)
         {
-            criteria.andEqualTo(SearchKey, SearchValue);
+            for (ListQueryItem item:searchList) {
+                if(!item.getSearchKey().isEmpty()){
+
+                    criteria.andEqualTo(item.getSearchKey(), item.getSearchValue());
+                }
+
+            }
         }
-
-
+        
 
         List<Person> list = personService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);
