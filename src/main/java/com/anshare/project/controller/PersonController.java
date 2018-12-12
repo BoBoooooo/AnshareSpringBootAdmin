@@ -56,9 +56,6 @@ public class PersonController {
         personService.update(person);
         return ResultGenerator.genSuccessResult("更新成功");
     }
-
-
-
     @ApiOperation(value = "获取Person对象所有字段以及对应的类型，注释")
 
     @PostMapping("/Getkey")
@@ -109,7 +106,7 @@ public class PersonController {
 
             }
         }
-        
+
 
         List<Person> list = personService.findByCondition(condition);
         PageInfo pageInfo = new PageInfo(list);

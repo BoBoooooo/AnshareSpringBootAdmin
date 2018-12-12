@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             // -- register url
             "/login/login",
+            "/test/*",
             "/login/test",
             // -- swagger ui
             "/v2/api-docs",
