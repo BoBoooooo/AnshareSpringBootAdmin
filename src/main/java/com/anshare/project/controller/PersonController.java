@@ -99,11 +99,31 @@ public class PersonController {
         if(searchList.size()!=0)
         {
             for (ListQueryItem item:searchList) {
-                if(!item.getSearchKey().isEmpty()){
 
-                    criteria.andEqualTo(item.getSearchKey(), item.getSearchValue());
+                if(!item.getSearchKey().isEmpty()) {
+                    String operator = item.getSearchOperator();
+                    String key = item.getSearchKey();
+                    String value = item.getSearchValue();
+                    switch (operator) {
+                        case ("like"):
+                            criteria.andLike(key, "%"+value+"%");break;
+                        case ("="):
+                            criteria.andEqualTo(key, value);break;
+                        case (">"):
+                            criteria.andLessThan(key, value);break;
+                        case ("<"):
+                            criteria.andGreaterThan(key, value);break;
+                        case ("<="):
+                            criteria.andGreaterThanOrEqualTo(key, value);break;
+                        case (">="):
+                            criteria.andLessThanOrEqualTo(key, value);break;
+                        case ("<>"):
+                            criteria.andIsNotNull(key);criteria.andNotEqualTo(key,value);break;
+                        case ("notlike"):
+                            criteria.andNotLike(key,"%"+value+"%");break;
+                    }
+
                 }
-
             }
         }
 

@@ -11,6 +11,9 @@ public class ListQueryItem {
      */
     private String searchKey;
 
+    private String searchOperator;
+
+
     private String searchValue;
 
 }
