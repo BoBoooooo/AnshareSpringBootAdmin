@@ -2,6 +2,7 @@ package com.anshare.project.controller;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.Dept;
+import com.anshare.project.model.TreeModel;
 import com.anshare.project.service.DeptService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -59,4 +60,13 @@ public class DeptController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @ApiOperation(value = "返回tree格式json")
+
+    @PostMapping("/treelist")
+    public Result treelist() {
+        List<TreeModel> list = deptService.GetTree();
+        return ResultGenerator.genSuccessResult(list);
+    }
+
 }
