@@ -42,7 +42,7 @@ public class SwaggerConfig{
 
 
     // 设置默认TOKEN，方便测试
-    private static final String TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiznrqHnkIblkZgsMDAwMDAwMDAtMTAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwLDAwMDAwMDAwLTAwMDAtMDAwMS0wMDAwLTAwMDAwMDAwMDAwMCIsImV4cCI6MTU0MDQ1MTc0MX0.222orbs5C3ayN7iknj4QMAGIUz5PHEezlv0DqJpGpQe7Ec1E3BtOYZlWr9tmHmBQHaPLxkxfY5vpe1nFW3jpaA";
+    private static final String TOKEN = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiznrqHnkIblkZgsMDAwMDAwMDAtMTAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwLDAwMDAwMDAwLTAwMDAtMDAwMS0wMDAwLTAwMDAwMDAwMDAwMCwwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJleHAiOjE1NDk3Njc5MTJ9.cPfxY8T2134HMr5NT-m5DzXUqb-z_QTrqWQH0Teg7b532Eojbqxsgc2m3tyI2Rg2PR6Rwp8_GkyvlWW-4e7wZg";
 
     @Bean
     public Docket api() {

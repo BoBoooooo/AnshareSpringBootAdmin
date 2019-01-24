@@ -1,10 +1,11 @@
 package com.anshare.project.service.impl;
+
 import com.anshare.project.core.AbstractService;
 import com.anshare.project.core.Util.TreeUtil;
-import com.anshare.project.dao.DeptMapper;
-import com.anshare.project.model.Dept;
+import com.anshare.project.dao.UnitMapper;
 import com.anshare.project.model.TreeModel;
-import com.anshare.project.service.DeptService;
+import com.anshare.project.model.Unit;
+import com.anshare.project.service.UnitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,34 +15,32 @@ import java.util.List;
 
 
 /**
- * Created by Anshare on 2018/09/27.
+ * Created by Anshare on 2019/01/24.
  */
 @Service
 @Transactional
-public class DeptServiceImpl extends AbstractService<Dept> implements DeptService {
+public class UnitServiceImpl extends AbstractService<Unit> implements UnitService {
     @Resource
-    private DeptMapper deptMapper;
-
-
-
+    private UnitMapper unitMapper;
 
     //查询所有菜单列表
     public List<TreeModel> GetTree() {
 
-        List<Dept> json_ = deptMapper.selectAll();
+        List<Unit> json_ = unitMapper.selectAll();
 
         //定义list集合,存储从数据库查询出的所有记录
         List<TreeModel> list = new ArrayList<TreeModel>();
 
         // String id, String pid, String path, String redirect, String name, String component, Boolean alwaysShow, String menu
         //遍历集合
-        for (Dept json : json_) {
+        for (Unit json : json_) {
             //手动封装Menu实体类对象
             TreeModel menu = new TreeModel(
                     json.getId(),
                     json.getParentid(),
-                    json.getDeptname(),
-                    json.getRank()
+                    json.getUnitname(),
+                    json.getSequence()
+
             );
 
 
@@ -54,6 +53,4 @@ public class DeptServiceImpl extends AbstractService<Dept> implements DeptServic
 
         return treeList;
     }
-
-
 }

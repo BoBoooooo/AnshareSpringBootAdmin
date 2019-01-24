@@ -4,7 +4,6 @@ import com.anshare.project.model.TreeModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 //用List构建带有层次结构的json数据
 //List父子节点构造树形Json
@@ -13,7 +12,6 @@ public class TreeUtil {
     public static List<TreeModel> listToTree(List<TreeModel> list) {
         //用递归找子。
         List<TreeModel> treeList = new ArrayList<TreeModel>();
-        list = list.stream().sorted().collect(Collectors.toList());
 
         for (TreeModel tree : list) {
             if (tree.getParentId().equals("00000000-0000-0000-0000-000000000000")) {
@@ -27,7 +25,6 @@ public class TreeUtil {
 
     //寻找子节点
     private static TreeModel findChildren(TreeModel tree, List<TreeModel> list) {
-        list = list.stream().sorted().collect(Collectors.toList());
         for (TreeModel node : list) {
             if (node.getParentId().equals(tree.getId())) {
                 if (tree.getChildren() == null) {
