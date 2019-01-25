@@ -1,4 +1,5 @@
 package com.anshare.project.controller;
+
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.TreeModel;
@@ -6,9 +7,10 @@ import com.anshare.project.model.Unit;
 import com.anshare.project.service.UnitService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -80,4 +82,14 @@ Unit unit = new Unit();
         List<TreeModel> list = unitService.GetTree();
         return ResultGenerator.genSuccessResult(list);
     }
+
+    @ApiOperation(value = "返回空对象")
+    @PostMapping("/getObj")
+    public Result getObj() {
+        return ResultGenerator.genSuccessResult(new Unit());
+    }
+
+
+
+
 }

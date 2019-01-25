@@ -29,21 +29,21 @@ public class UsersController {
     @PostMapping("/add")
     public Result add(@RequestBody Users users) {
         usersService.save(users,true);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("保存成功");
     }
     @ApiOperation(value = "deleteUsers")
 
     @PostMapping("/delete")
     public Result delete(@RequestParam String id) {
         usersService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("删除成功");
     }
     @ApiOperation(value = "updateUsers")
 
     @PostMapping("/update")
     public Result update(@RequestBody Users users) {
         usersService.update(users);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult("更新成功");
     }
     @ApiOperation(value = "detailUsers")
 
