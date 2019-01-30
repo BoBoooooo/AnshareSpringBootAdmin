@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.anshare.project.dao.DeptMapper">
-  <resultMap id="BaseResultMap" type="com.anshare.project.model.Dept">
+<mapper namespace="com.anshare.project.dao.system.DeptMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.system.Dept">
     <!--
       WARNING - @mbg.generated
     -->

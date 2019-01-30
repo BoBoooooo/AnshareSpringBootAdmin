@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.system.DictMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.system.Dict">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="DictID" jdbcType="CHAR" property="dictid" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="Code" jdbcType="VARCHAR" property="code" />
+    <result column="Sort" jdbcType="INTEGER" property="sort" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Value" jdbcType="LONGVARCHAR" property="value" />
+    <result column="Note" jdbcType="LONGVARCHAR" property="note" />
+    <result column="Other" jdbcType="LONGVARCHAR" property="other" />
+  </resultMap>
+</mapper>

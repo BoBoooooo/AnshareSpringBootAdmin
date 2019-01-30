@@ -1,6 +1,6 @@
 package com.anshare.project.core.Util;
 
-import com.anshare.project.model.TreeModel;
+import com.anshare.project.model.other.TreeModel;
 
 import java.util.ArrayList;
 import java.util.List;
