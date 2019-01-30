@@ -48,10 +48,9 @@ public class DictController {
 
     @ApiOperation(value = "获取Dict对象所有字段")
 
-    @PostMapping("/Getkey")
-    public Result Getkey() {
-Dict dict = new Dict();
-        return ResultGenerator.genSuccessResult(dict);
+    @PostMapping("/getObj")
+    public Result getObj() {
+        return ResultGenerator.genSuccessResult(new Dict());
     }
 
 
