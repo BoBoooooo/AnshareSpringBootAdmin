@@ -1,9 +1,12 @@
 package com.anshare.project.core;
 
 
+import com.anshare.project.model.other.ListQuery;
+import com.anshare.project.model.other.ListQueryItem;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -180,6 +183,47 @@ public abstract class AbstractService<T> implements Service<T> {
     public List<T> findByCondition(Condition condition) {
         condition.createCriteria()
                 .andEqualTo("isdeleted",false);
+        return mapper.selectByCondition(condition);
+    }
+    public List<T> findByConditionSuperQuery(ListQuery query) {
+
+        Condition condition = new Condition(modelClass);
+        Example.Criteria criteria  = condition.createCriteria()
+                .andEqualTo("isdeleted",false);
+
+        List<ListQueryItem> searchList = query.getSearchArr();
+
+        if(searchList.size()!=0)
+        {
+            for (ListQueryItem item:searchList) {
+
+                if(!item.getSearchKey().isEmpty()) {
+                    String operator = item.getSearchOperator();
+                    String key = item.getSearchKey();
+                    String value = item.getSearchValue();
+                    switch (operator) {
+                        case ("like"):
+                            criteria.andLike(key, "%"+value+"%");break;
+                        case ("="):
+                            criteria.andEqualTo(key, value);break;
+                        case (">"):
+                            criteria.andLessThan(key, value);break;
+                        case ("<"):
+                            criteria.andGreaterThan(key, value);break;
+                        case ("<="):
+                            criteria.andGreaterThanOrEqualTo(key, value);break;
+                        case (">="):
+                            criteria.andLessThanOrEqualTo(key, value);break;
+                        case ("<>"):
+                            criteria.andIsNotNull(key);criteria.andNotEqualTo(key,value);break;
+                        case ("notlike"):
+                            criteria.andNotLike(key,"%"+value+"%");break;
+                    }
+
+                }
+            }
+        }
+
         return mapper.selectByCondition(condition);
     }
 

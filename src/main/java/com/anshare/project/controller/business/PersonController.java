@@ -3,17 +3,14 @@ package com.anshare.project.controller.business;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.JwtUtil;
-import com.anshare.project.model.other.ListQuery;
-import com.anshare.project.model.other.ListQueryItem;
 import com.anshare.project.model.business.Person;
+import com.anshare.project.model.other.ListQuery;
 import com.anshare.project.service.inter.business.PersonService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
-import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -84,51 +81,8 @@ public class PersonController {
     public Result list(@RequestBody ListQuery params)
     {
         PageHelper.startPage(params.getPageIndex(), params.getPageSize());
-        Condition condition = new Condition(Person.class);
 
-        Example.Criteria criteria  = condition.createCriteria();
-        String[] details = JwtUtil.GetDetails();
-
-
-        criteria.andEqualTo("handledept", details[3]);
-
-        criteria.andEqualTo("isdeleted", false);
-
-        List<ListQueryItem> searchList = params.getSearchArr();
-
-        if(searchList.size()!=0)
-        {
-            for (ListQueryItem item:searchList) {
-
-                if(!item.getSearchKey().isEmpty()) {
-                    String operator = item.getSearchOperator();
-                    String key = item.getSearchKey();
-                    String value = item.getSearchValue();
-                    switch (operator) {
-                        case ("like"):
-                            criteria.andLike(key, "%"+value+"%");break;
-                        case ("="):
-                            criteria.andEqualTo(key, value);break;
-                        case (">"):
-                            criteria.andLessThan(key, value);break;
-                        case ("<"):
-                            criteria.andGreaterThan(key, value);break;
-                        case ("<="):
-                            criteria.andGreaterThanOrEqualTo(key, value);break;
-                        case (">="):
-                            criteria.andLessThanOrEqualTo(key, value);break;
-                        case ("<>"):
-                            criteria.andIsNotNull(key);criteria.andNotEqualTo(key,value);break;
-                        case ("notlike"):
-                            criteria.andNotLike(key,"%"+value+"%");break;
-                    }
-
-                }
-            }
-        }
-
-
-        List<Person> list = personService.findByCondition(condition);
+        List<Person> list = personService.findByConditionSuperQuery(params);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

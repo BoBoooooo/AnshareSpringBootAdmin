@@ -1,5 +1,6 @@
 package com.anshare.project.core;
 
+import com.anshare.project.model.other.ListQuery;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import tk.mybatis.mapper.entity.Condition;
 
@@ -24,5 +25,7 @@ public interface Service<T> {
     T findBy(String fieldName, Object value) throws TooManyResultsException; //通过Model中某个成员变量名称（非数据表中column的名称）查找,value需符合unique约束
     List<T> findByIds(String ids);//通过多个ID查找//eg：ids -> “1,2,3,4”
     List<T> findByCondition(Condition condition);//根据条件查找
+    List<T> findByConditionSuperQuery(ListQuery query);//根据条件查找
+
     List<T> findAll();//获取所有
 }
