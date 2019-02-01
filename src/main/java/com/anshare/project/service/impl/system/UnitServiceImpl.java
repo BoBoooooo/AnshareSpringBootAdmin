@@ -8,6 +8,8 @@ import com.anshare.project.model.system.Unit;
 import com.anshare.project.service.inter.system.UnitService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -26,7 +28,12 @@ public class UnitServiceImpl extends AbstractService<Unit> implements UnitServic
     //查询所有菜单列表
     public List<TreeModel> GetTree() {
 
-        List<Unit> json_ = unitMapper.selectAll();
+
+        Condition condition = new Condition(Unit.class);
+        Example.Criteria criteria  = condition.createCriteria()
+                .andEqualTo("isdeleted",false);
+
+        List<Unit> json_ = unitMapper.selectByCondition(condition);
 
         //定义list集合,存储从数据库查询出的所有记录
         List<TreeModel> list = new ArrayList<TreeModel>();

@@ -45,17 +45,6 @@ public class ${modelNameUpperCamel}Controller {
     }
 
 
-
-    @ApiOperation(value = "获取${modelNameUpperCamel}对象所有字段")
-
-    @PostMapping("/Getkey")
-    public Result Getkey() {
-${modelNameUpperCamel} ${modelNameLowerCamel} = new ${modelNameUpperCamel}();
-        return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
-    }
-
-
-
     @ApiOperation(value = "detail${modelNameUpperCamel}")
 
     @PostMapping("/detail")

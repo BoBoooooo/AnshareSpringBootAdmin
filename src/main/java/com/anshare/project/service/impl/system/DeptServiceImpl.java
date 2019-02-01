@@ -1,12 +1,15 @@
 package com.anshare.project.service.impl.system;
+
 import com.anshare.project.core.AbstractService;
 import com.anshare.project.core.Util.TreeUtil;
 import com.anshare.project.dao.system.DeptMapper;
-import com.anshare.project.model.system.Dept;
 import com.anshare.project.model.other.TreeModel;
+import com.anshare.project.model.system.Dept;
 import com.anshare.project.service.inter.system.DeptService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -28,7 +31,12 @@ public class DeptServiceImpl extends AbstractService<Dept> implements DeptServic
     //查询所有菜单列表
     public List<TreeModel> GetTree() {
 
-        List<Dept> json_ = deptMapper.selectAll();
+
+       Condition condition = new Condition(Dept.class);
+        Example.Criteria criteria  = condition.createCriteria()
+                .andEqualTo("isdeleted",false);
+
+        List<Dept> json_ = deptMapper.selectByCondition(condition);
 
         //定义list集合,存储从数据库查询出的所有记录
         List<TreeModel> list = new ArrayList<TreeModel>();
