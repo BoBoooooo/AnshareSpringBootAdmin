@@ -1,6 +1,13 @@
 package com.anshare.project.model.system;
 
-import javax.persistence.*;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+@Data
 
 public class Deptunit {
     @Id
@@ -14,45 +21,10 @@ public class Deptunit {
     @Column(name = "UnitID")
     private String unitid;
 
-    /**
-     * @return ID
-     */
-    public String getId() {
-        return id;
-    }
+    @Column(name = "IsDeleted")
+    private Boolean isdeleted;
 
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Column(name = "Timestamp")
+    private Date timestamp;
 
-    /**
-     * @return DeptID
-     */
-    public String getDeptid() {
-        return deptid;
-    }
-
-    /**
-     * @param deptid
-     */
-    public void setDeptid(String deptid) {
-        this.deptid = deptid;
-    }
-
-    /**
-     * @return UnitID
-     */
-    public String getUnitid() {
-        return unitid;
-    }
-
-    /**
-     * @param unitid
-     */
-    public void setUnitid(String unitid) {
-        this.unitid = unitid;
-    }
 }

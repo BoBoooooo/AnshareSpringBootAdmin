@@ -8,5 +8,7 @@
     <id column="ID" jdbcType="CHAR" property="id" />
     <result column="DeptID" jdbcType="CHAR" property="deptid" />
     <result column="UnitID" jdbcType="CHAR" property="unitid" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
   </resultMap>
 </mapper>
