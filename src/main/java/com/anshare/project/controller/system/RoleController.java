@@ -76,19 +76,7 @@ public class RoleController {
         return ResultGenerator.genSuccessResult(role);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     @ApiOperation(value = "listRole")
 
