@@ -61,4 +61,13 @@ public class ${modelNameUpperCamel}Controller {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+  @ApiOperation(value = "获取对象实体")
+
+    @PostMapping("/getObj")
+
+    public Result getObj() {
+        return ResultGenerator.genSuccessResult(new ${modelNameUpperCamel}());
+    }
+
 }

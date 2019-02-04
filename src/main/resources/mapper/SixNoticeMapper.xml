@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.business.SixNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.business.SixNotice">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="Date" jdbcType="VARCHAR" property="date" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>

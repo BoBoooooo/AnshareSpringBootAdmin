@@ -31,9 +31,10 @@ FROM
 	INFORMATION_SCHEMA.COLUMNS
 WHERE
 	table_name = #{tablename}
-	and COLUMN_COMMENT not like "%ID%"
-	and COLUMN_COMMENT not like "%IsDeleted%"
-	and COLUMN_COMMENT not like "%TimeStamp%"
+	and COLUMN_NAME not like "%ID%"
+	and COLUMN_NAME not like "%IsDeleted%"
+	and COLUMN_NAME not like "%TimeStamp%"
+	and table_schema= 'AnshareAdmin'
 
 
   </select>

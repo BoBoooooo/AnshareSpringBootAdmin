@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.business.SixRewardorpunishMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.business.SixRewardorpunish">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="StaffID" jdbcType="CHAR" property="staffid" />
+    <result column="Date" jdbcType="VARCHAR" property="date" />
+    <result column="RewardOrPunish" jdbcType="VARCHAR" property="rewardorpunish" />
+    <result column="Money" jdbcType="INTEGER" property="money" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Type" jdbcType="LONGVARCHAR" property="type" />
+    <result column="Content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>

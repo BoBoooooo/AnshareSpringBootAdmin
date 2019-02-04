@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anshare.project.dao.business.SixSalaryMapper">
+  <resultMap id="BaseResultMap" type="com.anshare.project.model.business.SixSalary">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="CHAR" property="id" />
+    <result column="StaffID" jdbcType="CHAR" property="staffid" />
+    <result column="Salary" jdbcType="VARCHAR" property="salary" />
+    <result column="OvertimePay" jdbcType="VARCHAR" property="overtimepay" />
+    <result column="Pension" jdbcType="VARCHAR" property="pension" />
+    <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
+    <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="Date" jdbcType="VARCHAR" property="date" />
+  </resultMap>
+</mapper>
