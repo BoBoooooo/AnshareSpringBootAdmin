@@ -63,6 +63,7 @@ public class SixRewardorpunishController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+    @PostMapping("/getObj")
 
     public Result getObj() {
         return ResultGenerator.genSuccessResult(new SixRewardorpunish());
