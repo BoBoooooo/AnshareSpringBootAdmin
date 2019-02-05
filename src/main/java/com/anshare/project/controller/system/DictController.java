@@ -1,13 +1,16 @@
 package com.anshare.project.controller.system;
+
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.system.Dict;
 import com.anshare.project.service.inter.system.DictService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -70,5 +73,19 @@ public class DictController {
         List<Dict> list = dictService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+
+    @ApiOperation(value = "获取字典项通过DictType By ID")
+
+    @PostMapping("/getDictByKey")
+    public Result getDictByKey(@RequestParam String DictID) {
+
+        tk.mybatis.mapper.entity.Condition condition = new tk.mybatis.mapper.entity.Condition(Dict.class);
+        Example.Criteria criteria  = condition.createCriteria()
+                .andEqualTo("dictid",DictID);
+
+        List<Dict> list = dictService.findByCondition(condition);
+        return ResultGenerator.genSuccessResult(list);
     }
 }
