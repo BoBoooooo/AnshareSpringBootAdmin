@@ -44,6 +44,8 @@ public class FileUploadController {
                          HttpServletRequest request) {
         String savename = UUID.randomUUID().toString();
         String MasterID = request.getParameter("MasterID");
+        String Type = request.getParameter("Type");
+
         String fileName = file.getOriginalFilename();
         String fileExtension = "." + FileUtil.getExtensionName(fileName);
         /*System.out.println("fileName-->" + fileName);
@@ -62,6 +64,7 @@ public class FileUploadController {
             temp.setFileextension(fileExtension);
             temp.setMasterid(MasterID);
             temp.setSavename(savename + fileExtension);
+            temp.setType(Type);
 
             affixService.save(temp, true);
             return ResultGenerator.genSuccessResult("上传成功");
@@ -141,12 +144,14 @@ public class FileUploadController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber,
                        @RequestParam(defaultValue = "0") Integer pageSize,
-                       @RequestParam(defaultValue = "") String MasterID) {
+                       @RequestParam(defaultValue = "") String MasterID,
+     @RequestParam(defaultValue = "") String Type) {
         PageHelper.startPage(pageNumber, pageSize);
         Condition condition = new Condition(Affix.class);
 
         Example.Criteria criteria = condition.createCriteria();
 
+        criteria.andEqualTo("type", Type);
 
         criteria.andEqualTo("masterid", MasterID);
         criteria.andEqualTo("isdeleted", false);
