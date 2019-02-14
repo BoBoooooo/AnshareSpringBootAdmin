@@ -14,4 +14,18 @@
     <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
     <result column="Date" jdbcType="VARCHAR" property="date" />
   </resultMap>
+
+
+  <select id="list"  resultType="java.util.Map">
+
+
+    SELECT
+       u.*,r.name
+    FROM
+        Six_Salary u
+     JOIN Six_Staff r   ON u.staffid = r.id
+     WHERE u.IsDeleted =0 and r.IsDeleted = 0
+
+</select>
+
 </mapper>

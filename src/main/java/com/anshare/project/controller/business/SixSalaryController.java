@@ -2,7 +2,7 @@ package com.anshare.project.controller.business;
 
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
-import com.anshare.project.model.business.SixRewardorpunish;
+import com.anshare.project.core.Util.BaseFuncUntil;
 import com.anshare.project.model.business.SixSalary;
 import com.anshare.project.service.inter.business.SixSalaryService;
 import com.github.pagehelper.PageHelper;
@@ -12,7 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by Anshare on 2019/02/04.
@@ -60,8 +62,17 @@ public class SixSalaryController {
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
-        List<SixSalary> list = sixSalaryService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        List<Map<String,Object>> list = sixSalaryService.list();
+
+
+        List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
+
+
+
+        for(Map<String,Object> temp : list){
+            list2.add(BaseFuncUntil.transformUpperCase(temp));
+        }
+        PageInfo pageInfo = new PageInfo(list2);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
     @PostMapping("/getObj")
