@@ -15,4 +15,19 @@
     <result column="Type" jdbcType="LONGVARCHAR" property="type" />
     <result column="Content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+
+  <select id="list"  resultType="java.util.Map">
+
+
+    SELECT
+       u.*,r.name
+    FROM
+        Six_Rewardorpunish u
+     JOIN Six_Staff r   ON u.staffid = r.id
+     WHERE u.IsDeleted =0 and r.IsDeleted = 0
+
+</select>
+
+
+
 </mapper>
