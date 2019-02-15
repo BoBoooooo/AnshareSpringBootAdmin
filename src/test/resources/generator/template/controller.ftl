@@ -52,15 +52,20 @@ public class ${modelNameUpperCamel}Controller {
         ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
+
+
     @ApiOperation(value = "list${modelNameUpperCamel}")
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
-        List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+    public Result list(@RequestBody ListQuery params)
+    {
+        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
+
+        List<Person> list = ${modelNameLowerCamel}Service.findByConditionSuperQuery(params);
+    PageInfo pageInfo = new PageInfo(list);
+    return ResultGenerator.genSuccessResult(pageInfo);
     }
+
 
   @ApiOperation(value = "获取对象实体")
 

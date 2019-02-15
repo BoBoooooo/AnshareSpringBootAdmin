@@ -2,6 +2,7 @@ package com.anshare.project.controller.system;
 
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
+import com.anshare.project.model.other.ListQuery;
 import com.anshare.project.model.system.Dict;
 import com.anshare.project.service.inter.system.DictService;
 import com.github.pagehelper.PageHelper;
@@ -67,13 +68,19 @@ public class DictController {
     }
     @ApiOperation(value = "listDict")
 
+
+
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
-        List<Dict> list = dictService.findAll();
+    public Result list(@RequestBody ListQuery params)
+    {
+        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
+
+        List<Dict> list = dictService.findByConditionSuperQuery(params);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+
 
 
     @ApiOperation(value = "获取字典项通过DictType By ID")

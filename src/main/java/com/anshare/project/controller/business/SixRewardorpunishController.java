@@ -59,6 +59,8 @@ public class SixRewardorpunishController {
     }
     @ApiOperation(value = "listSixRewardorpunish")
 
+
+
     @PostMapping("/list")
     public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);

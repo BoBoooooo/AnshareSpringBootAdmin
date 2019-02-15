@@ -3,6 +3,7 @@ package com.anshare.project.controller.business;
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.model.business.SixNotice;
+import com.anshare.project.model.other.ListQuery;
 import com.anshare.project.service.inter.business.SixNoticeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -57,9 +58,11 @@ public class SixNoticeController {
     @ApiOperation(value = "listSixNotice")
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer pageNumber, @RequestParam(defaultValue = "0") Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize);
-        List<SixNotice> list = sixNoticeService.findAll();
+    public Result list(@RequestBody ListQuery params)
+    {
+        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
+
+        List<SixNotice> list = sixNoticeService.findByConditionSuperQuery(params);
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
