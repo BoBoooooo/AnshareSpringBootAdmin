@@ -14,7 +14,7 @@ public class ListQuery {
     /**
      * 页码
      */
-    private int pageIndex;
+    private int pageNumber;
 
     /**
      * 搜索条件

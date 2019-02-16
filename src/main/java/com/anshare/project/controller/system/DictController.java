@@ -73,7 +73,7 @@ public class DictController {
     @PostMapping("/list")
     public Result list(@RequestBody ListQuery params)
     {
-        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
+        PageHelper.startPage(params.getPageNumber(), params.getPageSize());
 
         List<Dict> list = dictService.findByConditionSuperQuery(params);
         PageInfo pageInfo = new PageInfo(list);

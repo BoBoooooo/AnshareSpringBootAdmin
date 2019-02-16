@@ -80,7 +80,7 @@ public class PersonController {
     @PostMapping("/list")
     public Result list(@RequestBody ListQuery params)
     {
-        PageHelper.startPage(params.getPageIndex(), params.getPageSize());
+        PageHelper.startPage(params.getPageNumber(), params.getPageSize());
 
         List<Person> list = personService.findByConditionSuperQuery(params);
         PageInfo pageInfo = new PageInfo(list);
