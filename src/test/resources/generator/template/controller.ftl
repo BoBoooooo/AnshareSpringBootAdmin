@@ -57,7 +57,7 @@ public class ${modelNameUpperCamel}Controller {
     @ApiOperation(value = "list${modelNameUpperCamel}")
 
     @PostMapping("/list")
-    public Result list(@RequestBody ListQuery params)
+    public Result list(@RequestBody(required = false) ListQuery params)
     {
 
         if(params==null){
