@@ -59,15 +59,34 @@ public class ${modelNameUpperCamel}Controller {
     @PostMapping("/list")
     public Result list(@RequestBody ListQuery params)
     {
+
+        if(params==null){
+
+            List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findAll();
+            return ResultGenerator.genSuccessResult(list);
+        }
+        else
+        {
+            PageHelper.startPage(params.getPageNumber(), params.getPageSize());
+
+            List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findByConditionSuperQuery(params);
+            PageInfo pageInfo = new PageInfo(list);
+            return ResultGenerator.genSuccessResult(pageInfo);
+
+        }
+
+
         PageHelper.startPage(params.getPageIndex(), params.getPageSize());
 
-        List<Person> list = ${modelNameLowerCamel}Service.findByConditionSuperQuery(params);
-    PageInfo pageInfo = new PageInfo(list);
-    return ResultGenerator.genSuccessResult(pageInfo);
+        List<${modelNameUpperCamel}> list = ${modelNameLowerCamel}Service.findByConditionSuperQuery(params);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
 
-  @ApiOperation(value = "获取对象实体")
+
+
+    @ApiOperation(value = "获取对象实体")
 
     @PostMapping("/getObj")
 

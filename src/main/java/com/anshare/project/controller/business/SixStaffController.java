@@ -58,13 +58,24 @@ public class SixStaffController {
     @ApiOperation(value = "listStaff")
 
     @PostMapping("/list")
-    public Result list(@RequestBody ListQuery params)
+    public Result list(@RequestBody(required = false) ListQuery params)
     {
-        PageHelper.startPage(params.getPageNumber(), params.getPageSize());
 
-        List<SixStaff> list = sixStaffService.findByConditionSuperQuery(params);
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        if(params==null){
+
+            List<SixStaff> list = sixStaffService.findAll();
+            return ResultGenerator.genSuccessResult(list);
+        }
+        else
+        {
+            PageHelper.startPage(params.getPageNumber(), params.getPageSize());
+
+            List<SixStaff> list = sixStaffService.findByConditionSuperQuery(params);
+            PageInfo pageInfo = new PageInfo(list);
+            return ResultGenerator.genSuccessResult(pageInfo);
+
+        }
+
     }
     @PostMapping("/getObj")
 
