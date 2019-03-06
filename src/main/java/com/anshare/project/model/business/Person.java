@@ -1,7 +1,5 @@
 package com.anshare.project.model.business;
-
 import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
