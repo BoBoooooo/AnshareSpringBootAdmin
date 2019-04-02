@@ -5,6 +5,7 @@ import com.anshare.project.core.ResultCore.ResultGenerator;
 import com.anshare.project.core.Util.JwtUtil;
 import com.anshare.project.model.business.Person;
 import com.anshare.project.model.other.ListQuery;
+import com.anshare.project.model.system.Auth;
 import com.anshare.project.service.inter.business.PersonService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -30,10 +31,10 @@ public class PersonController {
 
     @PostMapping(value = "/add",produces = "application/json;charset=UTF-8")
     public Result add(@RequestBody Person person) {
-        String [] details = JwtUtil.GetDetails();
+       Auth details = JwtUtil.GetAuths();
 
-        person.setHandlestaff(details[4]);
-        person.setHandledept(details[3]);
+        person.setHandlestaff(details.getUserID());
+        person.setHandledept(details.getDeptID());
         personService.save(person,false);
         return ResultGenerator.genSuccessResult("保存成功");
     }

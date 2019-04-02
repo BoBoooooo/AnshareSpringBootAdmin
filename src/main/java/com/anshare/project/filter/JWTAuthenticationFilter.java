@@ -1,7 +1,9 @@
 package com.anshare.project.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.anshare.project.configurer.JwtConfig;
 import com.anshare.project.core.RedisService;
+import com.anshare.project.model.system.Auth;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,8 +60,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
-        String[] test = ((String[]) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        logger.info(test[0]);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
@@ -93,15 +93,15 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             System.out.println("Issuer: " + claims.getIssuer());
             System.out.println("Expiration: " + claims.getExpiration());
 
-            String[] user = claims.getSubject().split(",");
-
+            String AuthJsonString =claims.getSubject();
+            Auth user = JSON.parseObject(AuthJsonString,Auth.class);
             long end = System.currentTimeMillis();
             logger.info("执行时间: {}", (end - start) + " 毫秒");
 
 
             if (user != null) {
                 //如果redis中不存在该token
-                if (redisService.getStr(user[0]) == null) {
+                if (redisService.getStr(user.getUserName()) == null) {
                     throw new SecurityException("Token已失效");
 
                 } else {
