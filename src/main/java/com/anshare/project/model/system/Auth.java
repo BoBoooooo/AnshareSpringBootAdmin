@@ -1,6 +1,6 @@
 package com.anshare.project.model.system;
 
-import lombok.Data;
+        import lombok.Data;
 
 @Data
 
@@ -12,7 +12,7 @@ public class Auth {
     private String deptID;
     private String userID;
     private String roleID;
-    private String userDept;   //类似存储 'id1','id2','id3'等形式
+    private String userDept;   //类似存储 'id1','id2','id3'等形式    in('guid','guid' )
     private String userUser;
     private String userFunction;
 }
