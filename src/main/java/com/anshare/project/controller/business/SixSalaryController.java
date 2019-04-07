@@ -70,7 +70,7 @@ public class SixSalaryController {
 
 
         for(Map<String,Object> temp : list){
-            list2.add(BaseFuncUntil.transformUpperCase(temp));
+            list2.add(BaseFuncUntil.transformLowerCase(temp));
         }
         PageInfo pageInfo = new PageInfo(list2);
         return ResultGenerator.genSuccessResult(pageInfo);
@@ -79,6 +79,46 @@ public class SixSalaryController {
 
     public Result getObj() {
         return ResultGenerator.genSuccessResult(new SixSalary());
+    }
+
+    @PostMapping("/count")
+    public Result count(@RequestParam String time) {
+        PageHelper.startPage(0, 0);
+        List<Map<String,Object>> Salary = sixSalaryService.getSalary(time);
+        List<Map<String,Object>> Other = sixSalaryService.getRewardOrPunish(time);
+
+
+        for(Map<String,Object> item: Salary){
+            float salary = Float.parseFloat(item.get("Salary").toString());
+            float count =0 ;
+            for(Map<String,Object> subitem: Other){
+                if(subitem.get("StaffID").equals(item.get("StaffID"))){
+                    if(subitem.get("RewardOrPunish").equals("奖励")){
+                        count+=  Float.parseFloat(subitem.get("Money").toString());
+                    }
+                    else
+                    {
+                        count-=  Float.parseFloat(subitem.get("Money").toString());
+                    }
+                }
+
+            }
+            salary += count;
+            item.put("Salary",salary) ;
+        }
+
+
+
+
+        List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
+
+
+
+        for(Map<String,Object> temp : Salary){
+            list2.add(BaseFuncUntil.transformLowerCase(temp));
+        }
+        PageInfo pageInfo = new PageInfo(list2);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
 }

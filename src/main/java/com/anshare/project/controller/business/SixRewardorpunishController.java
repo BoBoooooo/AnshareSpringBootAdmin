@@ -74,7 +74,7 @@ public class SixRewardorpunishController {
 
 
         for(Map<String,Object> temp : list){
-            list2.add(BaseFuncUntil.transformUpperCase(temp));
+            list2.add(BaseFuncUntil.transformLowerCase(temp));
         }
         PageInfo pageInfo = new PageInfo(list2);
         return ResultGenerator.genSuccessResult(pageInfo);

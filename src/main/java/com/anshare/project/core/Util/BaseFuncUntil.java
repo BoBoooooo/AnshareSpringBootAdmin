@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class BaseFuncUntil {
 
-    public static Map<String, Object> transformUpperCase(Map<String, Object> orgMap) {
+    public static Map<String, Object> transformLowerCase(Map<String, Object> orgMap) {
         Map<String, Object> resultMap = new HashMap<>();
 
         if (orgMap == null || orgMap.isEmpty()) {

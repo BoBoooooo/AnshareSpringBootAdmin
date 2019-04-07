@@ -26,5 +26,14 @@ public class SixSalaryServiceImpl extends AbstractService<SixSalary> implements 
         return sixSalaryMapper.list();
     }
 
+    public List<Map<String, Object>> getSalary(String time) {
+
+        return sixSalaryMapper.getSalary(time);
+    }
+
+    public List<Map<String, Object>> getRewardOrPunish(String time) {
+
+        return sixSalaryMapper.getRewardOrPunish(time);
+    }
 
 }

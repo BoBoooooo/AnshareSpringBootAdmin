@@ -16,4 +16,15 @@
     <result column="IsDeleted" jdbcType="BIT" property="isdeleted" />
     <result column="Timestamp" jdbcType="TIMESTAMP" property="timestamp" />
   </resultMap>
+
+
+  <select id="list"  resultType="java.util.Map">
+    SELECT
+       u.*,t.DeptName as deptname2
+    FROM
+        Six_Staff u
+     JOIN Dept t   ON u.DeptName = t.id
+     WHERE u.IsDeleted =0 and t.IsDeleted = 0
+
+</select>
 </mapper>

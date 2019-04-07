@@ -28,4 +28,29 @@
 
 </select>
 
+
+    <select id="getSalary"  resultType="java.util.Map" parameterType="String">
+
+
+    SELECT
+       u.*,r.name
+    FROM
+        Six_Salary u
+     JOIN Six_Staff r   ON u.staffid = r.id
+     WHERE u.IsDeleted =0 and r.IsDeleted = 0 and u.Date=#{time}
+
+</select>
+
+    <select id="getRewardOrPunish"  resultType="java.util.Map" parameterType="String">
+
+
+    SELECT
+       u.*,r.name
+    FROM
+        Six_RewardOrPunish u
+     JOIN Six_Staff r   ON u.staffid = r.id
+     WHERE u.IsDeleted =0 and r.IsDeleted = 0 and u.Date=#{time}
+
+</select>
+
 </mapper>

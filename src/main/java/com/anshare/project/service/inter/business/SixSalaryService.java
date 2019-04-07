@@ -11,5 +11,8 @@ import java.util.Map;
  */
 public interface SixSalaryService extends Service<SixSalary> {
     public List<Map<String, Object>> list() ;
+    public List<Map<String, Object>> getSalary(String time) ;
+
+    public List<Map<String, Object>> getRewardOrPunish(String time) ;
 
 }

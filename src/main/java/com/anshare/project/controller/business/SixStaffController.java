@@ -2,6 +2,7 @@ package com.anshare.project.controller.business;
 
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultGenerator;
+import com.anshare.project.core.Util.BaseFuncUntil;
 import com.anshare.project.model.business.SixStaff;
 import com.anshare.project.model.other.ListQuery;
 import com.anshare.project.service.inter.business.SixStaffService;
@@ -12,7 +13,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
 * Created by Anshare on 2019/02/04.
@@ -61,20 +64,21 @@ public class SixStaffController {
     public Result list(@RequestBody(required = false) ListQuery params)
     {
 
-        if(params==null){
 
-            List<SixStaff> list = sixStaffService.findAll();
-            return ResultGenerator.genSuccessResult(list);
-        }
-        else
-        {
             PageHelper.startPage(params.getPageNumber(), params.getPageSize());
 
-            List<SixStaff> list = sixStaffService.findByConditionSuperQuery(params);
-            PageInfo pageInfo = new PageInfo(list);
+            List<Map<String,Object>> list = sixStaffService.list();
+        List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
+
+
+
+        for(Map<String,Object> temp : list){
+            list2.add(BaseFuncUntil.transformLowerCase(temp));
+        }
+            PageInfo pageInfo = new PageInfo(list2);
             return ResultGenerator.genSuccessResult(pageInfo);
 
-        }
+
 
     }
     @PostMapping("/getObj")
