@@ -33,10 +33,10 @@
 
 
     SELECT
-       u.*,r.name
+       u.*,r.name,t.deptname
     FROM
         Six_Salary u
-     JOIN Six_Staff r   ON u.staffid = r.id
+     JOIN Six_Staff r   ON u.staffid = r.id JOIN Dept t on r.deptname = t.id
      WHERE u.IsDeleted =0 and r.IsDeleted = 0 and u.Date=#{time}
 
 </select>
