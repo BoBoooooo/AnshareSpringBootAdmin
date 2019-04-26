@@ -18,10 +18,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
 import javax.annotation.Resource;
@@ -170,12 +167,12 @@ public class LoginController {
 
 
     @ApiOperation(value = "test 异常")
-    @PostMapping(value = "/test")
-    public Result getvaluebykey() {
+    @GetMapping(value = "/test")
+    public Result getvaluebykey(@RequestParam String token,@RequestParam String mobile,@RequestParam String message) {
 
 
-        throw new SecurityException("测试");
 
+        return ResultGenerator.genSuccessResult(token+";"+mobile+";"+message);
 
     }
 
