@@ -1,19 +1,9 @@
 package com.anshare.project.configurer;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-
 import com.anshare.project.core.ResultCore.Result;
 import com.anshare.project.core.ResultCore.ResultCode;
 import com.anshare.project.core.ServiceException;
@@ -30,6 +20,14 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Spring MVC 配置
@@ -75,7 +73,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 else if (e instanceof SecurityException) {
                     result.setCode(ResultCode.UNAUTHORIZED).setMessage(e.getMessage());
                 }else {
-                    result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
                     String message;
                     if (handler instanceof HandlerMethod) {
                         HandlerMethod handlerMethod = (HandlerMethod) handler;
@@ -87,6 +84,8 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     } else {
                         message = e.getMessage();
                     }
+                    result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误，"+message);
+
                     logger.error(message, e);
                 }
                 responseResult(response, result);
